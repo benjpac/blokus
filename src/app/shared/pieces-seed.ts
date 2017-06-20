@@ -8,7 +8,7 @@ export const PIECES: Piece[] = [
     centerX: null,
     centerY: null,
     active: false,
-    cells: [new Cell(0,0)]  
+    cells: [new Cell(0,0, null)]  
   },
   {
     board: null,
@@ -16,7 +16,7 @@ export const PIECES: Piece[] = [
     centerX: null,
     centerY: null,
     active: false,
-    cells: [new Cell(0,0), new Cell(0,1)] 
+    cells: [new Cell(0,0, null), new Cell(0,1, null)] 
   },
   {
     board: null,
@@ -24,7 +24,7 @@ export const PIECES: Piece[] = [
     centerX: null,
     centerY: null,
     active: false,
-    cells: [new Cell(0,0), new Cell(0,1), new Cell(0,-1)] 
+    cells: [new Cell(0,0, null), new Cell(0,1, null), new Cell(0,-1, null)] 
   },
   {
     board: null,
@@ -32,7 +32,7 @@ export const PIECES: Piece[] = [
     centerX: null,
     centerY: null,
     active: false,
-    cells: [new Cell(0,0), new Cell(0,1), new Cell(1,0)]
+    cells: [new Cell(0,0, null), new Cell(0,1, null), new Cell(1,0, null)]
   },
   {
     board: null,
@@ -40,7 +40,7 @@ export const PIECES: Piece[] = [
     centerX: null,
     centerY: null,
     active: false,
-    cells: [new Cell(0,0), new Cell(0,1), new Cell(1,0), new Cell(0,-1)]
+    cells: [new Cell(0,0, null), new Cell(0,1, null), new Cell(1,0, null), new Cell(0,-1, null)]
   },
   {
     board: null,
@@ -48,7 +48,7 @@ export const PIECES: Piece[] = [
     centerX: null,
     centerY: null,
     active: false,
-    cells: [new Cell(0,0), new Cell(1,0), new Cell(0,2), new Cell(0,-1)]
+    cells: [new Cell(0,0, null), new Cell(1,0, null), new Cell(0,2, null), new Cell(0,-1, null)]
   },
   {
     board: null,
@@ -56,7 +56,7 @@ export const PIECES: Piece[] = [
     centerX: null,
     centerY: null,
     active: false,
-    cells: [new Cell(0,0), new Cell(0,1), new Cell(0,2), new Cell(1,0)] 
+    cells: [new Cell(0,0, null), new Cell(0,1, null), new Cell(0,2, null), new Cell(1,0, null)] 
   },
   {
     board: null,
@@ -64,7 +64,7 @@ export const PIECES: Piece[] = [
     centerX: null,
     centerY: null,
     active: false,
-    cells: [new Cell(0,0), new Cell(0,1), new Cell(1,0), new Cell(1,-1), new Cell(0,-1)]
+    cells: [new Cell(0,0, null), new Cell(0,1, null), new Cell(1,0, null), new Cell(1,-1, null), new Cell(0,-1, null)]
   },
   {
     board: null,
@@ -72,7 +72,7 @@ export const PIECES: Piece[] = [
     centerX: null,
     centerY: null,
     active: false,
-    cells: [new Cell(1,1), new Cell(0,1), new Cell(1,0), new Cell(1,-1), new Cell(0,-1)]
+    cells: [new Cell(1,1, null), new Cell(0,1, null), new Cell(1,0, null), new Cell(1,-1, null), new Cell(0,-1, null)]
   },
   {
     board: null,
@@ -80,7 +80,7 @@ export const PIECES: Piece[] = [
     centerX: null,
     centerY: null,
     active: false,
-    cells: [new Cell(0,0), new Cell(0,1), new Cell(0,2), new Cell(0,-1), new Cell(1,-1)]
+    cells: [new Cell(0,0, null), new Cell(0,1, null), new Cell(0,2, null), new Cell(0,-1, null), new Cell(1,-1, null)]
   },
   // {
   //   board: null,
@@ -88,7 +88,7 @@ export const PIECES: Piece[] = [
   //   centerX: null,
   //   centerY: null,
   //   active: false,
-  //   cells: [new Cell(0,0), new Cell(0,1), new Cell(0,2), new Cell(0,-1), new Cell(1,-1)]
+  //   cells: [new Cell(0,0, null), new Cell(0,1, null), new Cell(0,2, null), new Cell(0,-1, null), new Cell(1,-1, null)]
   // },
   {
     board: null,
@@ -96,7 +96,7 @@ export const PIECES: Piece[] = [
     centerX: null,
     centerY: null,
     active: false,
-    cells: [new Cell(0,0), new Cell(0,1), new Cell(0,2), new Cell(0,-1), new Cell(0,-2)]
+    cells: [new Cell(0,0, null), new Cell(0,1, null), new Cell(0,2, null), new Cell(0,-1, null), new Cell(0,-2, null)]
   },
   {
     board: null,
@@ -104,7 +104,7 @@ export const PIECES: Piece[] = [
     centerX: null,
     centerY: null,
     active: false,
-    cells: [new Cell(0,0), new Cell(0,1), new Cell(-1,1), new Cell(0,-1), new Cell(1,-1)]
+    cells: [new Cell(0,0, null), new Cell(0,1, null), new Cell(-1,1, null), new Cell(0,-1, null), new Cell(1,-1, null)]
   },
   {
     board: null,
@@ -112,7 +112,7 @@ export const PIECES: Piece[] = [
     centerX: null,
     centerY: null,
     active: false,
-    cells: [new Cell(-1,-1), new Cell(-1,0), new Cell(-1,1), new Cell(0,-1), new Cell(1,-1)] 
+    cells: [new Cell(-1,-1, null), new Cell(-1,0, null), new Cell(-1,1, null), new Cell(0,-1, null), new Cell(1,-1, null)] 
   },
   {
     board: null,
@@ -120,7 +120,7 @@ export const PIECES: Piece[] = [
     centerX: null,
     centerY: null,
     active: false,
-    cells: [new Cell(0,0), new Cell(-1,0), new Cell(-1,1), new Cell(0,-1), new Cell(1,-1)] 
+    cells: [new Cell(0,0, null), new Cell(-1,0, null), new Cell(-1,1, null), new Cell(0,-1, null), new Cell(1,-1, null)] 
   },
   {
     board: null,
@@ -128,7 +128,7 @@ export const PIECES: Piece[] = [
     centerX: null,
     centerY: null,
     active: false,
-    cells: [new Cell(0,0), new Cell(-1,0), new Cell(-1,1), new Cell(0,-1), new Cell(0,-2)]
+    cells: [new Cell(0,0, null), new Cell(-1,0, null), new Cell(-1,1, null), new Cell(0,-1, null), new Cell(0,-2, null)]
   },
   {
     board: null,
@@ -136,7 +136,7 @@ export const PIECES: Piece[] = [
     centerX: null,
     centerY: null,
     active: false,
-    cells: [new Cell(0,0), new Cell(1,0), new Cell(0,1), new Cell(0,-1), new Cell(0,-2)] 
+    cells: [new Cell(0,0, null), new Cell(1,0, null), new Cell(0,1, null), new Cell(0,-1, null), new Cell(0,-2, null)] 
   },
   {
     board: null,
@@ -144,7 +144,7 @@ export const PIECES: Piece[] = [
     centerX: null,
     centerY: null,
     active: false,
-    cells: [new Cell(0,0), new Cell(1,0), new Cell(-1,1), new Cell(0,-1), new Cell(-1,0)]  
+    cells: [new Cell(0,0, null), new Cell(1,0, null), new Cell(-1,1, null), new Cell(0,-1, null), new Cell(-1,0, null)]  
   },
   {
     board: null,
@@ -152,6 +152,6 @@ export const PIECES: Piece[] = [
     centerX: null,
     centerY: null,
     active: false,
-    cells: [new Cell(0,0), new Cell(0,1), new Cell(-1,-1), new Cell(0,-1), new Cell(1,-1)]
+    cells: [new Cell(0,0, null), new Cell(0,1, null), new Cell(-1,-1, null), new Cell(0,-1, null), new Cell(1,-1, null)]
   },
 ]
