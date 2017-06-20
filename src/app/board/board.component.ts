@@ -22,7 +22,7 @@ export class BoardComponent implements OnInit {
     for (var i = 0; i < this.boardSize; i++) {
       var row = []
       for (var j = 0; j < this.boardSize; j++) {
-        row.push(new Cell(i, j, null))       
+        row.push(new Cell(j, i, null))       
       }
       this.board.push(row)
     }
@@ -38,8 +38,7 @@ export class BoardComponent implements OnInit {
     })
 
     coords.forEach((xy) => {
-      this.board[xy[0]][xy[1]].player = "Ben"
-      debugger
+      this.board[xy[1]][xy[0]].player = "Ben"
     })
   } 
 }
