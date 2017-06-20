@@ -6,8 +6,12 @@ import { PIECES } from './pieces-seed'
 @Injectable()
 export class PieceService {
 
-  initializePieces(): Promise<Piece[]> {
-    return Promise.resolve(PIECES);
+  // initializePieces(): Promise<Piece[]> {
+  //   return Promise.resolve(PIECES);
+  // }
+
+  initializePieces(): Piece[] {
+    return PIECES;
   }
 
   flipH(piece: Piece) {

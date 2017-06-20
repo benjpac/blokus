@@ -6,3 +6,9 @@ body {
     background:lightgray;
     font-family: Roboto, "Helvetica Neue", sans-serif;
 }
+
+td {
+    background: green;
+    height: 1em;
+    width: 1em
+}

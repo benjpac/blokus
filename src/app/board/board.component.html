@@ -1,9 +1,6 @@
+<h1>Board</h1>
 <table>
-  <div *ngFor="let row of board">
-    <tr>
-      <div *ngFor="let cell of rows">
-        <td>{{cell.player}}</td>
-      </div>
-    </tr>
-  </div>
+  <tr *ngFor="let row of board">
+    <td *ngFor="let cell of row">{{cell.player}}</td>
+  </tr>
 </table>
