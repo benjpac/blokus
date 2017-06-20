@@ -41,4 +41,20 @@ export class PieceService {
       cell.y = tempX
     })
   }
+
+  moveLeft(piece: Piece) {
+    piece.centerX = piece.centerX - 1
+  }
+
+  moveRight(piece: Piece) {
+    piece.centerX = piece.centerX + 1
+  }
+
+  moveUp(piece: Piece) {
+    piece.centerY = piece.centerY - 1
+  }
+
+  moveDown(piece: Piece) {
+    piece.centerY = piece.centerY + 1
+  }
 }

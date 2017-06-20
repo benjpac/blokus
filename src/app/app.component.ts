@@ -7,4 +7,9 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
 
+  personalSize = 17;
+  mainSize = 20
+  Ben = "Ben"
+  All = "All"
+
 }

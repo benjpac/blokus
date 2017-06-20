@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 
 import { Cell } from '../shared/cell.model'
 import { Piece } from './../shared/piece.model';
@@ -12,11 +12,30 @@ import { PieceService } from './../shared/piece.service';
   providers: [PieceService]
 })
 export class BoardComponent implements OnInit {
-  boardSize: number = 20
+  @Input() boardSize: number;
+  @Input() player: string;
   board = []
   pieces: Piece[] = []
   activeCells: Cell[] = []
   constructor(private pieceService: PieceService) { }
+
+  displayPieces() {
+    if (this.player != "All") { // test if board is individual or shared.
+      this.pieces = this.pieceService.initializePieces()
+      var coords: any[] = []
+      this.pieces.forEach((piece) => {
+        piece.cells.forEach((cell) => {
+          var xCoord = piece.centerX + cell.x
+          var yCoord = piece.centerY + cell.y
+          coords.push([xCoord, yCoord])
+        })
+      })
+
+      coords.forEach((xy) => {
+        this.board[xy[1]][xy[0]].player = this.player
+      })
+    };
+  }
 
   ngOnInit() {
     for (var i = 0; i < this.boardSize; i++) {
@@ -27,18 +46,22 @@ export class BoardComponent implements OnInit {
       this.board.push(row)
     }
 
-    this.pieces = this.pieceService.initializePieces()
-    var coords: any[] = []
-    this.pieces.forEach((piece) => {
-      piece.cells.forEach((cell) => {
-        var xCoord = piece.centerX + cell.x
-        var yCoord = piece.centerY + cell.y
-        coords.push([xCoord, yCoord])
-      })
-    })
+    this.displayPieces()
+    // if (this.player != "All") { // test if board is individual or shared.
+    //   this.pieces = this.pieceService.initializePieces()
+    //   var coords: any[] = []
+    //   this.pieces.forEach((piece) => {
+    //     piece.cells.forEach((cell) => {
+    //       var xCoord = piece.centerX + cell.x
+    //       var yCoord = piece.centerY + cell.y
+    //       coords.push([xCoord, yCoord])
+    //     })
+    //   })
 
-    coords.forEach((xy) => {
-      this.board[xy[1]][xy[0]].player = "Ben"
-    })
+    //   coords.forEach((xy) => {
+    //   this.board[xy[1]][xy[0]].player = this.player
+    //   })
+    // } //end if
   } 
 }
+
