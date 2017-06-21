@@ -7,13 +7,13 @@
   <button (click)="loginWithGoogle()" *ngIf="!currentUser">Login with Google</button>
 
     <div *ngIf="name">
-      <div *ngIf="currentUser.nickName == 'player'">
+      <div *ngIf="currentUser.nickName">
         <!-- <router-outlet (currentUser)=[current.user]></router-outlet> -->
         <label class="white">What would you like us to call you?</label>
-        <input #newNickName >
+        <input [(ngModel)]="currentUser.nickName">
         <br>
         <br>
-        <button (click)="updateNick(currentUser, newNickName.value); newNickName.value=''">Add nickname</button>
+        <button (click)="updateNick(currentUser)">Add nickname</button>
       </div>
 
     <div class="chat" *ngIf="name">

@@ -69,6 +69,7 @@ export class LoginComponent implements OnInit {
     this.af.auth.signOut();
     this.name = null;
     this.currentUser = null;
+    this.authService.logOff();
     this.onLogin.emit(false);
   }
 
@@ -80,7 +81,8 @@ export class LoginComponent implements OnInit {
     this.board = true;
   }
 
-  updateNick(user, nickname){
-    this.authService.updateNickName(user, nickname);
+  updateNick(user){
+
+    this.authService.updateNickName(user);
   }
 }

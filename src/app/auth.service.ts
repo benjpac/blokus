@@ -42,10 +42,10 @@ export class AuthService {
     this.items.push({ message: theirMessage, name: this.currentUser.nickName});
   }
 
-  updateNickName(currentUser, updatedName){
+  updateNickName(currentUser){
     console.log(currentUser)
     var userToUpdate = this.database.object('users/' + currentUser.$key);
-    userToUpdate.update({ nickName: updatedName})
+    userToUpdate.update({ nickName: currentUser.nickName})
   }
 
   getCurrent(){
@@ -63,7 +63,7 @@ export class AuthService {
       }
       console.log(this.currentUser)
       if(!this.currentUser){
-        var newUser = new User('player', uid, 0, false);
+        var newUser = new User(null, uid, 0, false);
         this.users.push(newUser);
       }
       console.log(this.currentUser);
@@ -73,5 +73,7 @@ export class AuthService {
     });
 
   }
-
+  logOff(){
+    this.currentUser = null;
+  }
 }
