@@ -17,3 +17,6 @@ td {
 .blue {
   background-color: blue;
 }
+.chat {
+  float: right;
+}

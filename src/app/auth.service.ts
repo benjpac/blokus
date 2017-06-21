@@ -32,17 +32,18 @@ export class AuthService {
       // get messages and limit to five results
     this.items = database.list('/messages', {
       query: {
-        limitToLast: 10
+        limitToLast: 5
       }
     });
   }
 
-  chatSend(theirMessage: string) {
+  chatSend(theirMessage) {
+      console.log(theirMessage)
     this.items.push({ message: theirMessage, name: this.currentUser.nickName});
-    this.msgVal = '';
   }
 
   updateNickName(currentUser, updatedName){
+    console.log(currentUser)
     var userToUpdate = this.database.object('users/' + currentUser.$key);
     userToUpdate.update({ nickName: updatedName})
   }

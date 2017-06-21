@@ -4,24 +4,28 @@
 
 <div class="row columns">
 
-<button (click)="loginWithGoogle()" *ngIf="!currentUser">Login with Google</button>
-  <div *ngIf="name">
-    <div *ngIf="currentUser.nickName == 'player'">
-      <!-- <router-outlet (currentUser)=[current.user]></router-outlet> -->
-      <label class="white">What would you like us to call you?</label>
-      <input #newNickName >
-      <br>
-      <br>
-      <button (click)="updateNickName(currentUser, newNickName.value)">Add nickname</button>
-    </div>
-    <button (click)='showBoard()'>Play</button>
-    <input ngDraggable type="text" id="message"  placeholder="Chat here..." (keyup.enter)="chatSend($event.target.value)" [(ngModel)]="msgVal" />
+  <button (click)="loginWithGoogle()" *ngIf="!currentUser">Login with Google</button>
 
-    <div class="chat-container" *ngFor="let item of items | async">
-      <a href="#">{{item.name}}</a>
+    <div *ngIf="name">
+      <div *ngIf="currentUser.nickName == 'player'">
+        <!-- <router-outlet (currentUser)=[current.user]></router-outlet> -->
+        <label class="white">What would you like us to call you?</label>
+        <input #newNickName >
+        <br>
+        <br>
+        <button (click)="updateNick(currentUser, newNickName.value); newNickName.value=''">Add nickname</button>
+      </div>
 
-      <p>{{item.message}}</p>
+    <div class="chat" *ngIf="name">
+      <input ngDraggable type="text" id="message"  placeholder="Chat here..." (keyup.enter)="chatEnter($event.target.value)" [(ngModel)]="msgVal" />
+
+      <div class="chat-container" *ngFor="let item of items | async">
+        <a href="#">{{item.name}}</a>
+
+        <p>{{item.message}}</p>
+      </div>
     </div>
+
     <button (click)="logout()" *ngIf="name">Logout</button>
 
   </div>

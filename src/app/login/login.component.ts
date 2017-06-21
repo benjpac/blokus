@@ -25,12 +25,20 @@ export class LoginComponent implements OnInit {
   title = 'app works!';
   currentUser;
   userList: User[];
+  msgVal: string = '';
   // get message
   items: FirebaseListObservable<any>;
   users: FirebaseListObservable<any>;
   // check auth
   name: Observable<firebase.User>;
-  constructor(public af: AngularFireAuth, private database: AngularFireDatabase, private authService: AuthService) { }
+  constructor(public af: AngularFireAuth, private database: AngularFireDatabase, private authService: AuthService) {
+    this.users = database.list('/users');
+    this.items = database.list('/messages', {
+      query: {
+        limitToLast: 5
+      }
+    });
+  }
 
   ngOnInit() {
   }
@@ -54,14 +62,6 @@ export class LoginComponent implements OnInit {
       }, 100);
       this.onLogin.emit(true);
 
-
-
-      // this.currentUser = this.authService.currentUser;
-      // console.log(foundUser);
-      // console.log(this.authService.getCurrent());
-      // console.log(this.userEmail);
-      // console.log(this.uid);
-      // run createUser(this.uid)
     })
   }
 
@@ -72,9 +72,15 @@ export class LoginComponent implements OnInit {
     this.onLogin.emit(false);
   }
 
-
+  chatEnter(theirMessage) {
+    this.authService.chatSend(theirMessage);
+    this.msgVal = '';
+  }
   showBoard(){
     this.board = true;
   }
 
+  updateNick(user, nickname){
+    this.authService.updateNickName(user, nickname);
+  }
 }
