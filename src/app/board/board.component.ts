@@ -32,7 +32,7 @@ export class BoardComponent implements OnInit {
     })
 
     coords.forEach((xy) => {
-      
+
     })
   }
 
@@ -50,9 +50,7 @@ export class BoardComponent implements OnInit {
       this.board.push(row)
     }
 
-<<<<<<< HEAD
-    
-=======
+
     this.displayPieces();
     // if (this.player != "All") { // test if board is individual or shared.
     //   this.pieces = this.pieceService.initializePieces()
@@ -70,7 +68,6 @@ export class BoardComponent implements OnInit {
     //   })
     // } //end if
 
->>>>>>> 05ca8ba1d55c4a86186e907ef1f7c1a855b7143a
 
     if (this.player != "All") {
       console.log("initializedPieces")

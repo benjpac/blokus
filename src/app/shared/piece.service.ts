@@ -1,4 +1,4 @@
-import { FirebaseListObservable, angularFireDatabase } from 'angularfire2/database';
+import { FirebaseListObservable, AngularFireDatabase } from 'angularfire2/database';
 import { Injectable } from '@angular/core';
 
 import { Piece } from './piece.model'
@@ -6,18 +6,18 @@ import { PIECES } from './pieces-seed'
 
 @Injectable()
 export class PieceService {
-  pieces: FirebaseListObservable<any[]>;
+  // pieces: FirebaseListObservable<any>;
 
-  constructor(private database: AngularFireDatabase) {
-    this.pieces = database.list('pieces');
-  }
+  // constructor(private database: AngularFireDatabase) {
+  //   this.pieces = database.list('pieces');
+  // }
 
-  initializePieces(): Piece[] {
-    PIECES.forEach((piece) => {
-      this.pieces.push(piece)
-    })
-    return this.pieces;
-  }
+  // initializePieces(): Piece[] {
+  //   PIECES.forEach((piece) => {
+  //     this.pieces.push(piece)
+  //   })
+  //   return this.pieces;
+  // }
 
   // displayPieces(pieces, board, player) {
   //   var coords: any[] = []
@@ -72,7 +72,7 @@ export class PieceService {
       this.rotCounterClock(piece)
     }
   }
-  
+
   rotCounterClock(piece: Piece) {
     piece.cells.forEach((cell) => {
       var tempX = cell.x
@@ -94,7 +94,7 @@ export class PieceService {
   moveRight(piece: Piece) {
     console.log(piece)
     piece.centerX += 1
-    
+
     if (this.testOffBoard(piece)) {
       this.moveLeft(piece)
     }
