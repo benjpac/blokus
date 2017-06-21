@@ -4,6 +4,8 @@ import { Cell } from '../shared/cell.model'
 import { Piece } from './../shared/piece.model';
 import { PieceService } from './../shared/piece.service';
 
+// import { AngularFireDatabase, FirebaseListObservable } from 'angularfire2/database';
+AngularFireDatabase
 
 @Component({
   selector: 'app-board',
@@ -20,21 +22,22 @@ export class BoardComponent implements OnInit {
   constructor(private pieceService: PieceService) { }
 
   displayPieces() {
-    if (this.player != "All") { // test if board is individual or shared.
-      this.pieces = this.pieceService.initializePieces()
-      var coords: any[] = []
-      this.pieces.forEach((piece) => {
-        piece.cells.forEach((cell) => {
-          var xCoord = piece.centerX + cell.x
-          var yCoord = piece.centerY + cell.y
-          coords.push([xCoord, yCoord])
-        })
+    var coords: any[] = []
+    this.pieces.forEach((piece) => {
+      piece.cells.forEach((cell) => {
+        var xCoord = piece.centerX + cell.x
+        var yCoord = piece.centerY + cell.y
+        coords.push([xCoord, yCoord])
       })
+    })
 
-      coords.forEach((xy) => {
-        this.board[xy[1]][xy[0]].player = this.player
-      })
-    };
+    coords.forEach((xy) => {
+      this.board[xy[1]][xy[0]].player = this.player
+    })
+  }
+
+  moveRight() {
+    this.pieceService.moveRight(this.pieces[this.pieces.length - 1])
   }
 
   ngOnInit() {
@@ -46,22 +49,11 @@ export class BoardComponent implements OnInit {
       this.board.push(row)
     }
 
-    this.displayPieces()
-    // if (this.player != "All") { // test if board is individual or shared.
-    //   this.pieces = this.pieceService.initializePieces()
-    //   var coords: any[] = []
-    //   this.pieces.forEach((piece) => {
-    //     piece.cells.forEach((cell) => {
-    //       var xCoord = piece.centerX + cell.x
-    //       var yCoord = piece.centerY + cell.y
-    //       coords.push([xCoord, yCoord])
-    //     })
-    //   })
-
-    //   coords.forEach((xy) => {
-    //   this.board[xy[1]][xy[0]].player = this.player
-    //   })
-    // } //end if
+    if (this.player != "All") {
+      console.log("initializedPieces")
+      this.pieces = this.pieceService.initializePieces()
+      this.displayPieces()
+    }
   } 
 }
 
