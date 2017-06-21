@@ -1,3 +1,4 @@
+import { FirebaseListObservable, angularFireDatabase } from 'angularfire2/database';
 import { Injectable } from '@angular/core';
 
 import { Piece } from './piece.model'
@@ -5,9 +6,17 @@ import { PIECES } from './pieces-seed'
 
 @Injectable()
 export class PieceService {
+  pieces: FirebaseListObservable<any[]>;
+
+  constructor(private database: AngularFireDatabase) {
+    this.pieces = database.list('pieces');
+  }
 
   initializePieces(): Piece[] {
-    return PIECES;
+    PIECES.forEach((piece) => {
+      this.pieces.push(piece)
+    })
+    return this.pieces;
   }
 
   // displayPieces(pieces, board, player) {
@@ -27,7 +36,7 @@ export class PieceService {
   // }
 
   testOffBoard(piece) {
-    piece.cells.forEach(function(cell) {
+    piece.cells.forEach((cell) => {
       if (cell.x < 0 || cell.y < 0 || cell.x > 19 || cell.y > 19) {
         return true
       }
@@ -36,7 +45,7 @@ export class PieceService {
   }
 
   flipH(piece: Piece) {
-    piece.cells.forEach(function(cell) {
+    piece.cells.forEach((cell) => {
       cell.x = -cell.x
     })
     if (this.testOffBoard(piece)) {
@@ -45,7 +54,7 @@ export class PieceService {
   }
 
   flipV(piece: Piece) {
-    piece.cells.forEach(function(cell) {
+    piece.cells.forEach((cell) => {
       cell.y = -cell.y
     })
     if (this.testOffBoard(piece)) {
@@ -54,7 +63,7 @@ export class PieceService {
   }
 
   rotClock(piece: Piece) {
-    piece.cells.forEach(function(cell) {
+    piece.cells.forEach((cell) => {
       var tempX = cell.x
       cell.x = cell.y
       cell.y = -tempX
@@ -65,7 +74,7 @@ export class PieceService {
   }
   
   rotCounterClock(piece: Piece) {
-    piece.cells.forEach(function(cell) {
+    piece.cells.forEach((cell) => {
       var tempX = cell.x
       cell.x = -cell.y
       cell.y = tempX
