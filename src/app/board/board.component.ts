@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-
+import { AngularDraggableModule } from 'angular2-draggable';
 import { Cell } from '../shared/cell.model'
 import { Piece } from './../shared/piece.model';
 import { PieceService } from './../shared/piece.service';
@@ -41,7 +41,7 @@ export class BoardComponent implements OnInit {
     for (var i = 0; i < this.boardSize; i++) {
       var row = []
       for (var j = 0; j < this.boardSize; j++) {
-        row.push(new Cell(j, i, null))       
+        row.push(new Cell(j, i, null))
       }
       this.board.push(row)
     }
@@ -62,6 +62,11 @@ export class BoardComponent implements OnInit {
     //   this.board[xy[1]][xy[0]].player = this.player
     //   })
     // } //end if
-  } 
-}
+  }
 
+  playTest(cell){
+    if(cell == 'Ben'){
+      return 'blue'
+    }
+  }
+}
