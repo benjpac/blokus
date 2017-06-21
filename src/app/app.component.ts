@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+
 import { AngularDraggableModule } from 'angular2-draggable';
 import { User } from './user.model'
 // database
@@ -11,16 +11,23 @@ import * as firebase from 'firebase/app';
 import { Observable } from 'rxjs/Observable';
 import { AngularFireAuth } from 'angularfire2/auth';
 import { AuthService } from './auth.service';
+import { PieceService } from './shared/piece.service';
+import { Component, OnInit } from '@angular/core';
+
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css'],
-  providers: [AuthService]
+  providers: [
+    AuthService,
+    PieceService
+  ]
 })
 export class AppComponent {
-  constructor(private authService: AuthService) {
+  constructor(private authService: AuthService, private pieceService: PieceService) {
    }
+
   personalSize = 17;
   mainSize = 20
   Ben = "Ben"
@@ -31,4 +38,5 @@ export class AppComponent {
     this.login = status;
   }
 
+  // ngOnInit() {}
 }

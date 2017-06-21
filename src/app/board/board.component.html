@@ -1,6 +1,7 @@
-{{boardSizeToChild}}
-<table >
-  <tr (mouseover)="background-color='yellow'" *ngFor="let row of board">
-    <td  *ngFor="let cell of row" [class]="playTest(cell.player)"></td>
+<table>
+  <tr *ngFor="let row of board">
+    <td *ngFor="let cell of row">{{cell.player}}</td>
   </tr>
 </table>
+
+<button (click)="moveRight()">Move Right</button>
