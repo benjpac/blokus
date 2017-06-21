@@ -81,8 +81,8 @@ export class LoginComponent implements OnInit {
     this.board = true;
   }
 
-  updateNick(user){
-
-    this.authService.updateNickName(user);
+  updateNick(name, user){
+    this.authService.updateNickName(name, user);
+    this.currentUser.nickName = name;
   }
 }

@@ -7,14 +7,14 @@
   <button (click)="loginWithGoogle()" *ngIf="!currentUser">Login with Google</button>
 
     <div *ngIf="name">
-      <div *ngIf="currentUser.nickName">
-        <!-- <router-outlet (currentUser)=[current.user]></router-outlet> -->
+      <div *ngIf="currentUser.nickName == 'player'">
         <label class="white">What would you like us to call you?</label>
-        <input [(ngModel)]="currentUser.nickName">
+        <input #newNickName >
         <br>
         <br>
-        <button (click)="updateNick(currentUser)">Add nickname</button>
+        <button (click)="updateNick(newNickName.value, currentUser)">Add nickname</button>
       </div>
+    </div>
 
     <div class="chat" *ngIf="name">
       <input ngDraggable type="text" id="message"  placeholder="Chat here..." (keyup.enter)="chatEnter($event.target.value)" [(ngModel)]="msgVal" />
@@ -28,6 +28,6 @@
 
     <button (click)="logout()" *ngIf="name">Logout</button>
 
-  </div>
+
 
 </div>
