@@ -3,12 +3,20 @@
 
 body {
     padding: 2em 10em;
-    background:lightgray;
+    background:gray;
     font-family: Roboto, "Helvetica Neue", sans-serif;
 }
 
 td {
-    background: green;
+
+    background: lightgray;
     height: 1.5em;
     width: 1.5em;
+}
+
+.blue {
+  background-color: blue;
+}
+.chat {
+  float: right;
 }

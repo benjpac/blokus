@@ -1,0 +1,33 @@
+<h1 class="white">
+  Welcome <span *ngIf="currentUser">{{currentUser.nickName}}</span>
+</h1>
+
+<div class="row columns">
+
+  <button (click)="loginWithGoogle()" *ngIf="!currentUser">Login with Google</button>
+
+    <div *ngIf="name">
+      <div *ngIf="currentUser.nickName">
+        <!-- <router-outlet (currentUser)=[current.user]></router-outlet> -->
+        <label class="white">What would you like us to call you?</label>
+        <input [(ngModel)]="currentUser.nickName">
+        <br>
+        <br>
+        <button (click)="updateNick(currentUser)">Add nickname</button>
+      </div>
+
+    <div class="chat" *ngIf="name">
+      <input ngDraggable type="text" id="message"  placeholder="Chat here..." (keyup.enter)="chatEnter($event.target.value)" [(ngModel)]="msgVal" />
+
+      <div class="chat-container" *ngFor="let item of items | async">
+        <a href="#">{{item.name}}</a>
+
+        <p>{{item.message}}</p>
+      </div>
+    </div>
+
+    <button (click)="logout()" *ngIf="name">Logout</button>
+
+  </div>
+
+</div>
