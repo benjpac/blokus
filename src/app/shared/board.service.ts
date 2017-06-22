@@ -16,7 +16,7 @@ export class BoardService {
   piecesArray: Piece[] = []
 
   constructor(public database: AngularFireDatabase) {
-    this.boards = database.list('boards', { preserveSnapshot: true }); // 
+    this.boards = database.list('boards', { preserveSnapshot: true }); //
     this.pieces = database.list('pieces'); //
   }
 
@@ -35,7 +35,7 @@ export class BoardService {
       var newRow = new Row (y, []);
       var rowID = rows.push(newRow).key;
       var cells: FirebaseListObservable<any[]> = this.database.list('/boards/' + boardID + '/rows/' + rowID + '/cells/')
-      for (var x = 0; x < boardSize; x++) {
+      for (var x = 0; x <= boardSize; x++) {
         var newCell = new Cell (x, y, boardPlayer);
         cells.push(newCell)
       }
@@ -48,25 +48,28 @@ export class BoardService {
     var boardObj: Board = null
     this.pieces.subscribe(piecesTemp => {
       this.piecesArray = piecesTemp;
-      for (var i = 0; i < this.piecesArray.length; i++) {
+      for (var i = 0; i <= (this.piecesArray.length-1); i++) {
         var piece = this.piecesArray[i]
         console.log("i=", i)
         this.piecesArray[i].cells.forEach((cell) => {
           var xCoord = piece.centerX + cell.x;
           var yCoord = piece.centerY + cell.y;
           this.boards.subscribe(snapshots => {
-            var boards = snapshots
-            for (var j = 0; j < boards.length; j++) {
-              var board = snapshots[j];
-              console.log(" j=", j); // change to "i=" + i + "j=" + j to break the inifinte loop by slowing it down enough that it hits the debugger. 
-              if (board.key === boardKey) {
-                debugger
+            var loopboards = snapshots
+            console.log(loopboards)
+            for (var j = 0; j <= (loopboards.length-1); j++) {
+              var board = loopboards[j];
+              console.log(" j=", j); // change to "i=" + i + "j=" + j to break the inifinte loop by slowing it down enough that it hits the debugger.
+              if (loopboards[j].key === boardKey) {
+                console.log(loopboards[j].key)
+                break
+                // debugger
               }
             }
           })
-        })   
+        })
       }
-    });   
+    });
   }
 
   testOffBoard(piece) {
@@ -106,7 +109,7 @@ export class BoardService {
       this.rotCounterClock(piece)
     }
   }
-  
+
   rotCounterClock(piece: Piece) {
     piece.cells.forEach((cell) => {
       var tempX = cell.x
@@ -128,7 +131,7 @@ export class BoardService {
   moveRight(piece: Piece) {
     console.log(piece)
     piece.centerX += 1
-    
+
     if (this.testOffBoard(piece)) {
       this.moveLeft(piece)
     }
