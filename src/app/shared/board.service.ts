@@ -32,7 +32,7 @@ export class BoardService {
     for (var y = 0; y < boardSize; y++) {
       var cellsArray = []
       for (var x = 0; x < boardSize; x++) {
-        var newCell = new Cell (x, y, boardPlayer);
+        var newCell = new Cell (x, y);
         cellsArray.push(newCell)
       }
       var newRow = new Row (y, cellsArray);
@@ -43,28 +43,26 @@ export class BoardService {
     return boardID;
   }
 
-  displayPieces(boardKey) {
+  displayPieces(boardKey, player) {
     var coords: any[] = [];
-    var boardObjArray: Board[]
 
     var board = this.database.object('/boards/' + boardKey) // SO EASY. use the board key in the url to grab the board you want.
     board.subscribe(snapshot => {
       var pieces = snapshot.pieces
       for (let pieceKey in pieces) {
-        console.log(pieceKey)
         var piece = pieces[pieceKey]
         piece.cells.forEach(cell => {
           var xCoord = piece.centerX + cell.x;
           var yCoord = piece.centerY + cell.y;
-
-          var dbCell = this.database.object('/boards/' + boardKey + "/rows/" + yCoord + "/cells/" + xCoord)
-          debugger 
-          // Here we need to add the pieceKey and player to the DB cell. 
-
-          // Here, we want to find the board
+          coords.push([yCoord, xCoord, pieceKey])
         });
       }
     })  
+    console.log(coords)
+    coords.forEach(cell => {
+      this.database.object('/boards/' + boardKey + "/rows/" + cell[0] + "/cells/" + cell[1]).update({ pieceKey: cell[2], player: player })
+      // console.log(this.database.object('/boards/' + boardKey + "/rows/" + set[1] + "/cells/" + set[0]))
+    })
   }
 
   testOffBoard(piece) {
