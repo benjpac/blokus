@@ -1,5 +1,4 @@
-
-<table >
+<table>
   <tr *ngFor="let row of board">
     <td  *ngFor="let cell of row.cells" (click)='yell($event)'>{{cell.player}}</td>
   </tr>
