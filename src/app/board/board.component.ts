@@ -35,19 +35,20 @@ export class BoardComponent implements OnInit {
 
     if (this.player != "All") {
       this.pieces = this.boardService.initializePieces(boardKey)
-      this.boardService.displayPieces(boardKey, this.player)
-      this.getBoard(boardKey)
     }
+
+    this.boardService.displayPieces(boardKey, this.player)
+    this.getBoard(boardKey)
   }
-  
+
   clicker;
   yell(event){
-
-    if(event.srcElement.attributes.class.value == 'blue'){
-      this.clicker = 'blue'
-    } else if(event.srcElement.attributes.class.value == 'none'){
-      event.srcElement.attributes.class.value = 'blue'
-    }
+    this.clicker = event.srcElement.attributes.class.value;
+    // if(event.srcElement.attributes.class.value == 'blue'){
+    //   this.clicker = 'blue'
+    // } else if(event.srcElement.attributes.class.value == 'none'){
+    //   event.srcElement.attributes.class.value = 'blue'
+    // }
     console.log(this.clicker)
     console.log(event.srcElement.attributes.class.value)
   }
