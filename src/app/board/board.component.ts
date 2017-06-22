@@ -27,7 +27,7 @@ export class BoardComponent implements OnInit {
   getBoard(boardKey) {
     this.database.object('/boards/' + boardKey).subscribe(temp => {
       this.board = temp.rows
-      debugger
+
     })
   }
 
@@ -35,7 +35,7 @@ export class BoardComponent implements OnInit {
     var boardKey = this.boardService.makeBoard(this.boardSize, this.player)
 
     if (this.player != "All") {
-      debugger
+
       this.pieces = this.boardService.initializePieces(boardKey)
     }
 
@@ -61,5 +61,14 @@ export class BoardComponent implements OnInit {
     } else {
       return 'none'
     }
+  }
+
+  findStuff(cell){
+    if(cell.player)
+    {
+      var player = cell.player;
+      var piece = cell.pieceKey;
+      return player +" "+ piece;
+    }    
   }
 }

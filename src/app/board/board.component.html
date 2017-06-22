@@ -1,8 +1,12 @@
 
 <table >
   <tr *ngFor="let row of board">
-    <td [ngClass]="cell.pieceKey"  *ngFor="let cell of row.cells" (click)='yell($event)'>{{cell.player}}</td>
+    <td  *ngFor="let cell of row.cells" (click)='yell($event)'>{{cell.player}}</td>
   </tr>
 </table>
 
 <button md-raised-button (click)="moveRight()">Move Right</button>
+
+<!--[ngClass]="cell.pieceKey"-->
+<!--[ngClass]="{'class1': cell.pieceKey, 'class2': cell.x}"-->
+<!--[ngClass]='findStuff(cell)'-->
