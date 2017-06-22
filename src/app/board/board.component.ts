@@ -21,6 +21,7 @@ export class BoardComponent implements OnInit {
   pieces: Piece[] = []
   activeCells: Cell[] = []
 
+
   constructor(private boardService: BoardService, public database: AngularFireDatabase) { }
 
   getBoard(boardKey) {
@@ -28,21 +29,35 @@ export class BoardComponent implements OnInit {
       this.board = temp.rows
     })
   }
- 
+
   ngOnInit() {
     var boardKey = this.boardService.makeBoard(this.boardSize, this.player)
 
     if (this.player != "All") {
       this.pieces = this.boardService.initializePieces(boardKey)
     }
-    
+
     this.boardService.displayPieces(boardKey, this.player)
     this.getBoard(boardKey)
+  }
+
+  clicker;
+  yell(event){
+    this.clicker = event.srcElement.attributes.class.value;
+    // if(event.srcElement.attributes.class.value == 'blue'){
+    //   this.clicker = 'blue'
+    // } else if(event.srcElement.attributes.class.value == 'none'){
+    //   event.srcElement.attributes.class.value = 'blue'
+    // }
+    console.log(this.clicker)
+    console.log(event.srcElement.attributes.class.value)
   }
 
   playTest(cell){
     if(cell == 'Ben'){
       return 'blue'
+    } else {
+      return 'none'
     }
   }
 }

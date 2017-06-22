@@ -6,7 +6,7 @@
 
   <button md-raised-button (click)="loginWithGoogle()" *ngIf="!currentUser">Login with Google</button>
 
-    <div *ngIf="name">
+    <!-- <div *ngIf="name"> -->
       <div *ngIf="currentUser.nickName == 'player'">
         <label class="white">What would you like us to call you?</label>
         <input #newNickName >
@@ -14,17 +14,18 @@
         <br>
         <button md-raised-button (click)="updateNick(newNickName.value, currentUser)">Add nickname</button>
       </div>
-    </div>
+    <!-- </div> -->
 
-    <div class="chat">
-      <input type="text" id="message"  placeholder="Chat here..." (keyup.enter)="chatEnter($event.target.value)" [(ngModel)]="msgVal" />
+    <!-- <div class="chat" *ngIf="name"> -->
+      <input ngDraggable type="text" id="message"  placeholder="Chat here..." (keyup.enter)="chatEnter($event.target.value)" [(ngModel)]="msgVal" />
+
 
       <div class="chat-container" *ngFor="let item of items | async">
         {{item.name}}
 
         <p>{{item.message}}</p>
       </div>
-    </div>
+    <!-- </div> -->
 
     <button md-raised-button (click)="logout()" *ngIf="name">Logout</button>
 
