@@ -34,9 +34,10 @@ export class BoardComponent implements OnInit {
 
     if (this.player != "All") {
       this.pieces = this.boardService.initializePieces(boardKey)
-      this.boardService.displayPieces(boardKey, this.player)
-      this.getBoard(boardKey)
     }
+    
+    this.boardService.displayPieces(boardKey, this.player)
+    this.getBoard(boardKey)
   }
 
   playTest(cell){
