@@ -13,9 +13,14 @@ td {
     height: 1.5em;
     width: 1.5em;
 }
-
+.yellow {
+  background-color: yellow;
+}
 .blue {
   background-color: blue;
+}
+.red {
+  background-color: red;
 }
 .chat {
   float: right;
