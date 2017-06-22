@@ -7,7 +7,6 @@ export var masterFirebaseConfig = {
     messagingSenderId: "773946232603"
   };
 
-<<<<<<< HEAD
 //starfirebase
   // export var masterFirebaseConfig = {
   //     apiKey: "AIzaSyBcYLCVjOImBPsk8GCRD0Ik_vqdYRm72ss",
@@ -16,13 +15,3 @@ export var masterFirebaseConfig = {
   //     storageBucket: "blokus-9a1cb.appspot.com",
   //     messagingSenderId: "960262095818"
   //   };
-=======
-// //starfirebase
-//   export var masterFirebaseConfig = {
-//       apiKey: "AIzaSyBcYLCVjOImBPsk8GCRD0Ik_vqdYRm72ss",
-//       authDomain: "blokus-9a1cb.firebaseapp.com",
-//       databaseURL: "https://blokus-9a1cb.firebaseio.com",
-//       storageBucket: "blokus-9a1cb.appspot.com",
-//       messagingSenderId: "960262095818"
-//     };
->>>>>>> d2b329f584905f13c73d4fc7d874db68bbf14c6c

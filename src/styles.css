@@ -3,19 +3,19 @@
 
 body {
   padding: 2em 2em;
-  background:lightgray;
+  background:lightgray !important;
   font-family: Roboto, "Helvetica Neue", sans-serif;
 }
 
 td {
-  background: white;
+  background: gray;
+  border: 1px solid white;
   height: 1.5em;
   width: 1.5em;
 }
 
 .mat-raised-button {
-  background: #00600f;
-  color: white !important;
+  background: #6abf69;
 }
 
 input#message {
@@ -63,9 +63,6 @@ input#message {
   margin: 2px 0 5px 0;
 }
 
-<<<<<<< HEAD
 .chat {
   margin-top: 1.2em;
 }
-=======
->>>>>>> d2b329f584905f13c73d4fc7d874db68bbf14c6c
