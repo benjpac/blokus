@@ -2,7 +2,6 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MdButtonModule, MdInputModule, MdCardModule, MdMenuModule, MdToolbarModule, MdIconModule } from '@angular/material';
-import { AngularDraggableModule } from 'angular2-draggable';
 import { AppComponent } from './app.component';
 import { BoardComponent } from './board/board.component';
 import { AuthService } from './auth.service';
@@ -49,7 +48,6 @@ const routes: Routes = [
     MdToolbarModule,
     MdIconModule,
     MdInputModule,
-    AngularDraggableModule,
     FormsModule,
     HttpModule,
     AngularFireModule.initializeApp(firebaseConfig),

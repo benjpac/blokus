@@ -1,5 +1,3 @@
-
-import { AngularDraggableModule } from 'angular2-draggable';
 import { User } from './user.model'
 // database
 import { AngularFireModule } from 'angularfire2';
