@@ -28,18 +28,18 @@ export class BoardService {
   }
 
   makeBoard(boardSize: number, boardPlayer) {
-    var newBoard = new Board([]);
-    var boardID = this.boards.push(newBoard).key;
-    var rows: FirebaseListObservable<any[]> = this.database.list('/boards/' + boardID + '/rows/')
+    var rowsArray = []
     for (var y = 0; y < boardSize; y++) {
-      var newRow = new Row (y, []);
-      var rowID = rows.push(newRow).key;
-      var cells: FirebaseListObservable<any[]> = this.database.list('/boards/' + boardID + '/rows/' + rowID + '/cells/')
+      var cellsArray = []
       for (var x = 0; x < boardSize; x++) {
         var newCell = new Cell (x, y, boardPlayer);
-        cells.push(newCell)
+        cellsArray.push(newCell)
       }
+      var newRow = new Row (y, cellsArray);
+      rowsArray.push(newRow)
     }
+    var newBoard = new Board(rowsArray);
+    var boardID = this.boards.push(newBoard).key;
     return boardID;
   }
 
@@ -49,35 +49,22 @@ export class BoardService {
 
     var board = this.database.object('/boards/' + boardKey) // SO EASY. use the board key in the url to grab the board you want.
     board.subscribe(snapshot => {
-      debugger
-    })
-    // this.boards.subscribe(snapshot => {
-    //   snapshot.forEach((board) => {
-    //     debugger
-    //     if (board.key === boardKey) { debugger } 
-    //   })
-    // })
-    // this.pieces.subscribe(piecesTemp => {
-    //   this.piecesArray = piecesTemp;
-    //   for (var i = 0; i < this.piecesArray.length; i++) {
-    //     var piece = this.piecesArray[i]
-    //     console.log("i=", i)
-    //     this.piecesArray[i].cells.forEach((cell) => {
-    //       var xCoord = piece.centerX + cell.x;
-    //       var yCoord = piece.centerY + cell.y;
-    //       this.boards.subscribe(snapshots => {
-    //         var boards = snapshots
-    //         for (var j = 0; j < boards.length; j++) {
-    //           var board = snapshots[j];
-    //           console.log("i=" + i + ", j=" + j); // console log seems to slow the computer down enough that it hits the if statement and hence debugger before the subscribe gives new data - result is that the infinite loop is broken. And the app isn't usable. 
-    //           if (board.key === boardKey) {
-    //             debugger
-    //           }
-    //         }
-    //       })
-    //     })   
-    //   }
-    // });   
+      var pieces = snapshot.pieces
+      for (let pieceKey in pieces) {
+        console.log(pieceKey)
+        var piece = pieces[pieceKey]
+        piece.cells.forEach(cell => {
+          var xCoord = piece.centerX + cell.x;
+          var yCoord = piece.centerY + cell.y;
+
+          var dbCell = this.database.object('/boards/' + boardKey + "/rows/" + yCoord + "/cells/" + xCoord)
+          debugger 
+          // Here we need to add the pieceKey and player to the DB cell. 
+
+          // Here, we want to find the board
+        });
+      }
+    })  
   }
 
   testOffBoard(piece) {
