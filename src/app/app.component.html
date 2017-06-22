@@ -11,23 +11,34 @@
   <button md-menu-item> Help </button>
 </md-menu>
 
-<!--<div *ngIf="login">-->
 
-  <h2>Blue Board</h2>
-  <app-board [boardSize]="personalSize" [player]="blue"></app-board>
 
-  <!--<h2>Red Board</h2>
-  <app-board [boardSize]="personalSize" [player]="red"></app-board>
+<app-login (onLogin)="onLogin($event)"></app-login>
 
-  <h2>Yellow Board</h2>
-  <app-board [boardSize]="personalSize" [player]="yellow"></app-board>
-
-  <h2>Green Board</h2>
-  <app-board [boardSize]="personalSize" [player]="green"></app-board>
+<div *ngIf="login" class="boards">
+  
+  <div class="row">
+    <div class="col-md-6">
+      <h2>Blue Board</h2>
+      <app-board [boardSize]="personalSize" [player]="blue"></app-board>
+    </div>
+    <div class="col-md-6">
+      <h2>Red Board</h2>
+      <app-board [boardSize]="personalSize" [player]="red"></app-board>      
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <h2>Yellow Board</h2>
+      <app-board [boardSize]="personalSize" [player]="yellow"></app-board>
+    </div>
+    <div class="col-md-6">
+      <h2>Green Board</h2>
+      <app-board [boardSize]="personalSize" [player]="green"></app-board>      
+    </div>
+  </div>
 
   <h2>Main Board</h2>
-  <app-board [boardSize]="mainSize" [player]="All" ></app-board>-->
+  <app-board [boardSize]="mainSize" [player]="All" ></app-board>
 
-<!--</div>-->
-
-<!--<app-login (onLogin)="onLogin($event)"></app-login>-->
+</div>

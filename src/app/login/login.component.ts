@@ -35,7 +35,7 @@ export class LoginComponent implements OnInit {
     this.users = database.list('/users');
     this.items = database.list('/messages', {
       query: {
-        limitToLast: 5
+        limitToLast: 10
       }
     });
   }

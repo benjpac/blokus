@@ -32,7 +32,7 @@ export class AuthService {
       // get messages and limit to five results
     this.items = database.list('/messages', {
       query: {
-        limitToLast: 5
+        limitToLast: 10
       }
     });
   }

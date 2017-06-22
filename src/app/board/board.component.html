@@ -3,5 +3,8 @@
     <td [ngClass]='findStuff(cell)' *ngFor="let cell of row.cells" (click)='yell($event)'></td>
   </tr>
 </table>
+<button md-raised-button (click)="moveRight()">Move Left</button>
 <button md-raised-button (click)="moveRight()">Move Right</button>
-<button md-raised-button (click)="wipeDatabase()">Wipe Database</button>
+<button md-raised-button (click)="moveRight()">Move Up</button>
+<button md-raised-button (click)="moveRight()">Move Down</button>
+<!--<button md-raised-button (click)="wipeDatabase()">Wipe Database</button>-->
