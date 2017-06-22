@@ -63,6 +63,10 @@ export class BoardService {
       this.database.object('/boards/' + boardKey + "/rows/" + cell[0] + "/cells/" + cell[1]).update({ pieceKey: cell[2], player: player })
       // console.log(this.database.object('/boards/' + boardKey + "/rows/" + set[1] + "/cells/" + set[0]))
     })
+    this.database.object('/boards/' + boardKey).subscribe(snapshot => {
+      console.log(snapshot);
+      return snapshot
+    }) // SO EASY. use the board key in the url to grab the board you want.
   }
 
   testOffBoard(piece) {
