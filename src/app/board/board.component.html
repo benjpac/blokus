@@ -1,6 +1,6 @@
 <table>
   <tr *ngFor="let row of board">
-    <td [ngClass]="cell.pieceKey" *ngFor="let cell of row.cells"></td>
+    <td [ngClass]="cell.pieceKey" *ngFor="let cell of row.cells">{{cell.player}}</td>
   </tr>
 </table>
 
