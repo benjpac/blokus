@@ -20,8 +20,6 @@ export class BoardComponent implements OnInit {
   activeCells: Cell[] = []
   boards;
   constructor(private boardService: BoardService) { }
-
-
     // coords.forEach((xy) => {
     //
     // })
@@ -48,9 +46,9 @@ export class BoardComponent implements OnInit {
     var boardKey = this.boards.push(this.board).key
     for (var i = 0; i < this.boardSize; i++) {
       var row = []
-      for (var j = 0; j < this.boardSize; j++) {
-        row.push(new Cell(j, i, null))
-      }
+      // for (var j = 0; j < this.boardSize; j++) {
+      //   row.push(new Cell(j, i, null))
+      // }
       this.board.push(row)
     }
 
@@ -75,7 +73,7 @@ export class BoardComponent implements OnInit {
 
     if (this.player != "All") {
       this.pieces = this.boardService.initializePieces(boardKey)
-      this.boardService.displayPieces(boardKey)
+      this.boardService.displayPieces(boardKey, this.player)
     }
   }
   clicker;

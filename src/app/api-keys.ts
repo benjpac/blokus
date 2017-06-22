@@ -6,6 +6,8 @@
 //     storageBucket: "blokus-97b79.appspot.com",
 //     messagingSenderId: "773946232603"
 //   };
+
+//starfirebase
   export var masterFirebaseConfig = {
       apiKey: "AIzaSyBcYLCVjOImBPsk8GCRD0Ik_vqdYRm72ss",
       authDomain: "blokus-9a1cb.firebaseapp.com",
