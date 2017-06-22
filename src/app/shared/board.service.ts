@@ -12,17 +12,17 @@ import { PIECES } from './pieces-seed'
 @Injectable()
 export class BoardService {
   boards: FirebaseListObservable<any[]>;
-  pieces: FirebaseListObservable<any[]>;
   piecesArray: Piece[] = []
+  
 
   constructor(public database: AngularFireDatabase) {
-    this.boards = database.list('boards', { preserveSnapshot: true }); // 
-    this.pieces = database.list('pieces'); //
+  this.boards = database.list('boards'); //   preserve snapshot allows board.key to work in display pieces
   }
 
-  initializePieces(): Piece[] {
+  initializePieces(boardID): Piece[] {
+    var pieces: FirebaseListObservable<any[]> = this.database.list('/boards/' + boardID + '/pieces/')
     PIECES.forEach((piece) => {
-      this.pieces.push(piece);
+      pieces.push(piece);
     })
     return PIECES;
   }
@@ -45,28 +45,39 @@ export class BoardService {
 
   displayPieces(boardKey) {
     var coords: any[] = [];
-    var boardObj: Board = null
-    this.pieces.subscribe(piecesTemp => {
-      this.piecesArray = piecesTemp;
-      for (var i = 0; i < this.piecesArray.length; i++) {
-        var piece = this.piecesArray[i]
-        console.log("i=", i)
-        this.piecesArray[i].cells.forEach((cell) => {
-          var xCoord = piece.centerX + cell.x;
-          var yCoord = piece.centerY + cell.y;
-          this.boards.subscribe(snapshots => {
-            var boards = snapshots
-            for (var j = 0; j < boards.length; j++) {
-              var board = snapshots[j];
-              console.log("i=" + i + ", j=" + j); // console log seems to slow the computer down enough that it hits the if statement and hence debugger before the subscribe gives new data - result is that the infinite loop is broken. And the app isn't usable. 
-              if (board.key === boardKey) {
-                debugger
-              }
-            }
-          })
-        })   
-      }
-    });   
+    var boardObjArray: Board[]
+
+    var board = this.database.object('/boards/' + boardKey) // SO EASY. use the board key in the url to grab the board you want.
+    board.subscribe(snapshot => {
+      debugger
+    })
+    // this.boards.subscribe(snapshot => {
+    //   snapshot.forEach((board) => {
+    //     debugger
+    //     if (board.key === boardKey) { debugger } 
+    //   })
+    // })
+    // this.pieces.subscribe(piecesTemp => {
+    //   this.piecesArray = piecesTemp;
+    //   for (var i = 0; i < this.piecesArray.length; i++) {
+    //     var piece = this.piecesArray[i]
+    //     console.log("i=", i)
+    //     this.piecesArray[i].cells.forEach((cell) => {
+    //       var xCoord = piece.centerX + cell.x;
+    //       var yCoord = piece.centerY + cell.y;
+    //       this.boards.subscribe(snapshots => {
+    //         var boards = snapshots
+    //         for (var j = 0; j < boards.length; j++) {
+    //           var board = snapshots[j];
+    //           console.log("i=" + i + ", j=" + j); // console log seems to slow the computer down enough that it hits the if statement and hence debugger before the subscribe gives new data - result is that the infinite loop is broken. And the app isn't usable. 
+    //           if (board.key === boardKey) {
+    //             debugger
+    //           }
+    //         }
+    //       })
+    //     })   
+    //   }
+    // });   
   }
 
   testOffBoard(piece) {
