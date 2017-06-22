@@ -17,25 +17,27 @@ import { Piece } from './../shared/piece.model';
 export class BoardComponent implements OnInit {
   @Input() boardSize: number;
   @Input() player: string;
-  board: any//FirebaseObjectObservable<any>;
+  board: any
   pieces: Piece[] = []
   activeCells: Cell[] = []
-
 
   constructor(private boardService: BoardService, public database: AngularFireDatabase) { }
 
   getBoard(boardKey) {
     this.database.object('/boards/' + boardKey).subscribe(temp => {
       this.board = temp.rows
-      debugger
     })
+  }
+
+  wipeDatabase() {
+    this.boardService.wipeDatabase()
   }
 
   ngOnInit() {
     var boardKey = this.boardService.makeBoard(this.boardSize, this.player)
 
     if (this.player != "All") {
-      debugger
+
       this.pieces = this.boardService.initializePieces(boardKey)
     }
 
@@ -61,5 +63,14 @@ export class BoardComponent implements OnInit {
     } else {
       return 'none'
     }
+  }
+
+  findStuff(cell){
+    if(cell.player)
+    {
+      var player = cell.player;
+      var piece = cell.pieceKey;
+      return player +" "+ piece;
+    }    
   }
 }

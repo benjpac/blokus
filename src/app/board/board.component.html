@@ -1,11 +1,7 @@
-<div class="col-md-12">
-  <table>
-    <tr *ngFor="let row of board">
-      <td [ngClass]="cell.pieceKey"  *ngFor="let cell of row.cells" (click)='yell($event)'>{{cell.player}}</td>
-    </tr>
-  </table>
-  <br>
-  <button md-raised-button (click)="moveRight()">Move Right</button>
-  <br>
-</div>
-
+<table>
+  <tr *ngFor="let row of board">
+    <td [ngClass]='findStuff(cell)' *ngFor="let cell of row.cells" (click)='yell($event)'></td>
+  </tr>
+</table>
+<button md-raised-button (click)="moveRight()">Move Right</button>
+<button md-raised-button (click)="wipeDatabase()">Wipe Database</button>

@@ -14,6 +14,13 @@ td {
   width: 1.5em;
 }
 
+.Ben {
+  background: blue;
+  border: 1px solid black;
+  height: 1.5em;
+  width: 1.5em;
+}
+
 .mat-raised-button {
   background: #6abf69;
 }

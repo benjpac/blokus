@@ -50,13 +50,12 @@ export class BoardService {
     board.subscribe(snapshot => {
       var pieces = snapshot.pieces
       for (let pieceKey in pieces) {
+        this.movePiece(boardKey, pieceKey, "this.moveRight")
         var piece = pieces[pieceKey]
          piece.cells.forEach(cell => {
           var xCoord = piece.centerX + cell.x;
           var yCoord = piece.centerY + cell.y;
-          
           coords.push([yCoord, xCoord, pieceKey])
-
         });
        }
     })  
@@ -65,10 +64,20 @@ export class BoardService {
       this.database.object('/boards/' + boardKey + "/rows/" + cell[0] + "/cells/" + cell[1]).update({ pieceKey: cell[2], player: player })
       // console.log(this.database.object('/boards/' + boardKey + "/rows/" + set[1] + "/cells/" + set[0]))
     })
-    this.database.object('/boards/' + boardKey).subscribe(snapshot => {
-      console.log(snapshot);
-      return snapshot
-    }) 
+    this.database.object('/boards/' + boardKey).subscribe(snapshot => { return snapshot }) 
+  }
+
+  movePiece(boardKey, pieceKey, callback) {
+    this.database.object('/boards/' + boardKey + "/pieces/" + pieceKey).subscribe(temp => {
+      console.log(callback);      
+      var piece = callback(temp)
+      // this.database.object('/boards/' + boardKey + "/pieces/" +  pieceKey).update({ board: piece.board, player: piece.player, centerX: piece.centerX, centerY: piece.centerY, active: piece.active, cells: piece.cells, })
+    })
+  }
+
+  wipeDatabase() {
+    debugger
+    this.database.list('/boards/').remove()
   }
 
   testOffBoard(piece) {
@@ -87,6 +96,7 @@ export class BoardService {
     if (this.testOffBoard(piece)) {
       this.flipH(piece)
     }
+    return piece
   }
 
   flipV(piece: Piece) {
@@ -96,6 +106,7 @@ export class BoardService {
     if (this.testOffBoard(piece)) {
       this.flipV(piece)
     }
+    return piece
   }
 
   rotClock(piece: Piece) {
@@ -118,6 +129,7 @@ export class BoardService {
     if (this.testOffBoard(piece)) {
       this.rotClock(piece)
     }
+    return piece
   }
 
   moveLeft(piece: Piece) {
@@ -125,15 +137,15 @@ export class BoardService {
     if (this.testOffBoard(piece)) {
       this.moveRight(piece)
     }
+    return piece
   }
 
   moveRight(piece: Piece) {
-    console.log(piece)
     piece.centerX += 1
-    
     if (this.testOffBoard(piece)) {
       this.moveLeft(piece)
     }
+    return piece
   }
 
   moveUp(piece: Piece) {
@@ -141,6 +153,7 @@ export class BoardService {
     if (this.testOffBoard(piece)) {
       this.moveDown(piece)
     }
+    return piece
   }
 
   moveDown(piece: Piece) {
@@ -148,5 +161,6 @@ export class BoardService {
     if (this.testOffBoard(piece)) {
       this.moveUp(piece)
     }
+    return piece
   }
 }
