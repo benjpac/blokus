@@ -2,15 +2,15 @@
 @import '~@angular/material/prebuilt-themes/purple-green.css';
 
 body {
-    padding: 2em 2em;
-    background:lightgray;
-    font-family: Roboto, "Helvetica Neue", sans-serif;
+  padding: 2em 2em;
+  background:lightgray;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
 }
 
 td {
-    background: white;
-    height: 1.5em;
-    width: 1.5em;
+  background: white;
+  height: 1.5em;
+  width: 1.5em;
 }
 
 .mat-raised-button {
@@ -19,42 +19,51 @@ td {
 }
 
 input#message {
-    background:none;
-    border:none;
-    border-bottom: 1px solid #4C4C4C;
-    outline:none;
-    box-shadow:none;
-    font-size:1.6em;
-    font-weight:300;
-    margin-bottom: 1em;
-    padding:1.2em 0;
+  background:none;
+  border:none;
+  border-bottom: 1px solid #4C4C4C;
+  outline:none;
+  box-shadow:none;
+  font-size:1.6em;
+  font-weight:300;
+  margin-bottom: 1em;
+  padding:1.2em 0;
+  width: 100%;
 }
 
 .chat-container {
-    display:block;
-    width:100%;
-    opacity: .2;
+  display:block;
+  width:100%;
 }
-.chat-container:nth-child(2) {
-    opacity: .8;
+
+.chat-container:nth-child(4) {
+  opacity: .8;
 }
 .chat-container:nth-child(3) {
-    opacity: .6;
+  opacity: .6;
 }
-.chat-container:nth-child(4) {
-    opacity: .4;
+.chat-container:nth-child(2) {
+  opacity: .4;
 }
 
 .chat-container a {
-    text-transform: uppercase;
-    font-weight:bold;
-    font-size:.8em;
-    letter-spacing:2px;
+  text-transform: uppercase;
+  font-weight:bold;
+  font-size:.8em;
+  letter-spacing:2px;
 }
 
 .chat-container p {
+<<<<<<< HEAD
+  background:#323035;
+  padding:1.1em;
+  color:white;
+  margin: 5px 0 10px 0;
+}
+=======
     background:#323035;
     padding:1.1em;
     color:white;
     margin: 5px 0 10px 0;
 }
+>>>>>>> 05bbb190580588aa693981001a6a2518880683b8
