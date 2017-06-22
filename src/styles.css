@@ -14,12 +14,26 @@ td {
   width: 1.5em;
 }
 
-.Ben {
+.blue {
   background: blue;
   border: 1px solid black;
-  height: 1.5em;
-  width: 1.5em;
 }
+
+.red {
+  background: red;
+  border: 1px solid black;
+}
+
+.green {
+  background: green;
+  border: 1px solid black;
+}
+
+.yellow {
+  background: yellow;
+  border: 1px solid black;
+}
+
 
 .mat-raised-button {
   background: #6abf69;

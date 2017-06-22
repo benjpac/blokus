@@ -63,7 +63,7 @@ export class AuthService {
       }
       console.log(this.currentUser)
       if(!this.currentUser){
-        var newUser = new User('player', uid, 0, false);
+        var newUser = new User('player', uid, 0, true);
         this.users.push(newUser);
       }
       console.log(this.currentUser);

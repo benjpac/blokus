@@ -27,7 +27,10 @@ export class AppComponent {
 
   personalSize = 17;
   mainSize = 20
-  Ben = "Ben"
+  blue = "blue"
+  red = "red"
+  yellow = "yellow"
+  green = "green"
   All = "All"
   login = false;
 
