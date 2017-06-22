@@ -58,7 +58,7 @@ export class BoardService {
             var boards = snapshots
             for (var j = 0; j < boards.length; j++) {
               var board = snapshots[j];
-              console.log(" j=", j); // change to "i=" + i + "j=" + j to break the inifinte loop by slowing it down enough that it hits the debugger. 
+              console.log("i=" + i + ", j=" + j); // console log seems to slow the computer down enough that it hits the if statement and hence debugger before the subscribe gives new data - result is that the infinite loop is broken. And the app isn't usable. 
               if (board.key === boardKey) {
                 debugger
               }
