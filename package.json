@@ -23,7 +23,6 @@
     "@angular/platform-browser-dynamic": "^4.0.0",
     "@angular/router": "^4.0.0",
     "@ng-bootstrap/ng-bootstrap": "^1.0.0-alpha.26",
-    "angular2-draggable": "^1.0.3",
     "angularfire": "^2.3.0",
     "angularfire2": "^4.0.0-rc.0",
     "core-js": "^2.4.1",

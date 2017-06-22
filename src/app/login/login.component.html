@@ -4,7 +4,7 @@
 
 <div class="row columns">
 
-  <button (click)="loginWithGoogle()" *ngIf="!currentUser">Login with Google</button>
+  <button md-raised-button (click)="loginWithGoogle()" *ngIf="!currentUser">Login with Google</button>
 
     <div *ngIf="name">
       <div *ngIf="currentUser.nickName == 'player'">
@@ -12,22 +12,20 @@
         <input #newNickName >
         <br>
         <br>
-        <button (click)="updateNick(newNickName.value, currentUser)">Add nickname</button>
+        <button md-raised-button (click)="updateNick(newNickName.value, currentUser)">Add nickname</button>
       </div>
     </div>
 
-    <div class="chat" *ngIf="name">
-      <input ngDraggable type="text" id="message"  placeholder="Chat here..." (keyup.enter)="chatEnter($event.target.value)" [(ngModel)]="msgVal" />
+    <div class="chat">
+      <input type="text" id="message"  placeholder="Chat here..." (keyup.enter)="chatEnter($event.target.value)" [(ngModel)]="msgVal" />
 
       <div class="chat-container" *ngFor="let item of items | async">
-        <a href="#">{{item.name}}</a>
+        {{item.name}}
 
         <p>{{item.message}}</p>
       </div>
     </div>
 
-    <button (click)="logout()" *ngIf="name">Logout</button>
-
-
+    <button md-raised-button (click)="logout()" *ngIf="name">Logout</button>
 
 </div>
