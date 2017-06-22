@@ -13,12 +13,6 @@ td {
     width: 1.5em;
 }
 
-.blue {
-  background-color: blue;
-}
-/*.chat {
-  float: right;
-}*/
 
 .mat-raised-button {
   background: #00600f;
@@ -65,7 +59,3 @@ input#message {
     color:white;
     margin: 5px 0 10px 0;
 }
-
-/*.white {
-  color: white;
-}*/
