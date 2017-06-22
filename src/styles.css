@@ -13,7 +13,6 @@ td {
   width: 1.5em;
 }
 
-
 .mat-raised-button {
   background: #00600f;
   color: white !important;
@@ -55,8 +54,16 @@ input#message {
 }
 
 .chat-container p {
+<<<<<<< HEAD
   background:#323035;
   padding:1.1em;
   color:white;
   margin: 5px 0 10px 0;
 }
+=======
+    background:#323035;
+    padding:1.1em;
+    color:white;
+    margin: 5px 0 10px 0;
+}
+>>>>>>> 05bbb190580588aa693981001a6a2518880683b8

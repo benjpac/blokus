@@ -5,15 +5,19 @@
       Welcome <span *ngIf="currentUser">{{currentUser.nickName}}</span>
     </h1>
 
-    <div *ngIf="name">
+    <!-- <div *ngIf="name"> -->
       <div *ngIf="currentUser.nickName == 'player'">
         <div class="form-group">
           <label class="white">What would you like us to call you?</label>
           <input #newNickName class="form-control">
         </div>
       </div>
-    </div>
+    <!-- </div> -->
 
+    <!-- <div class="chat" *ngIf="name"> -->
+      <input ngDraggable type="text" id="message"  placeholder="Chat here..." (keyup.enter)="chatEnter($event.target.value)" [(ngModel)]="msgVal" />
+
+<<<<<<< HEAD
     <button *ngIf="name" md-raised-button (click)="updateNick(newNickName.value, currentUser)">Add nickname</button>
 
     <button md-raised-button (click)="loginWithGoogle()" *ngIf="!currentUser">Login with Google</button>
@@ -23,12 +27,20 @@
   </div>
   <div class="col-md-8">
     <div class="chat">
+=======
+>>>>>>> 05bbb190580588aa693981001a6a2518880683b8
 
       <div class="chat-container" *ngFor="let item of items | async">
         {{item.name}}
 
         <p>{{item.message}}</p>
       </div>
+<<<<<<< HEAD
+=======
+    <!-- </div> -->
+
+    <button md-raised-button (click)="logout()" *ngIf="name">Logout</button>
+>>>>>>> 05bbb190580588aa693981001a6a2518880683b8
 
       <input type="text" id="message"  placeholder="Chat here..." (keyup.enter)="chatEnter($event.target.value)" [(ngModel)]="msgVal"/>
     </div>

@@ -12,15 +12,18 @@ import { AuthService } from './auth.service';
 import { PieceService } from './shared/piece.service';
 import { Component, OnInit } from '@angular/core';
 
+import { BoardComponent } from './board/board.component';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css'],
+
   providers: [
     AuthService,
     PieceService
   ]
+
 })
 export class AppComponent {
   constructor(private authService: AuthService, private pieceService: PieceService) {
