@@ -11,12 +11,13 @@ import * as firebase from 'firebase/app';
 import { Observable } from 'rxjs/Observable';
 import { AngularFireAuth } from 'angularfire2/auth';
 import { AuthService } from './auth.service';
-
+import { BoardComponent } from './board/board.component';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css'],
-  providers: [AuthService]
+  providers: [AuthService],
+  // directives: [ BoardComponent]
 })
 export class AppComponent {
   constructor(private authService: AuthService) {

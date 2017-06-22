@@ -5,7 +5,10 @@ import { PIECES } from './pieces-seed'
 
 @Injectable()
 export class PieceService {
-
+  clicker;
+  setClicker(input){
+    this.clicker = input;
+  }
   // initializePieces(): Promise<Piece[]> {
   //   return Promise.resolve(PIECES);
   // }
@@ -33,7 +36,7 @@ export class PieceService {
       cell.y = -tempX
     })
   }
-  
+
   rotCounterClock(piece: Piece) {
     piece.cells.forEach(function(cell) {
       var tempX = cell.x

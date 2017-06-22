@@ -69,7 +69,7 @@ export class BoardComponent implements OnInit {
     if(event.srcElement.attributes.class.value == 'blue'){
       this.clicker = 'blue'
     } else if(event.srcElement.attributes.class.value == 'none'){
-      event.srcElement.attributes.class.value = this.clicker;
+      event.srcElement.attributes.class.value = 'blue'
     }
     console.log(this.clicker)
     console.log(event.srcElement.attributes.class.value)
