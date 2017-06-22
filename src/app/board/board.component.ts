@@ -50,11 +50,11 @@ export class BoardComponent implements OnInit {
     //   this.board.push(row)
     // }
 
-    this.boardService.makeBoard(20, "Ben")
+    var boardKey = this.boardService.makeBoard(20, "Ben")
 
     if (this.player != "All") {
       this.pieces = this.boardService.initializePieces()
-      // this.boardService.displayPieces()
+      this.boardService.displayPieces(boardKey)
     }
   }
 

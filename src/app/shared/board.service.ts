@@ -6,7 +6,6 @@ import { Cell } from './cell.model'
 import { Row } from './row.model'
 import { Board } from './board.model'
 import { Piece } from './piece.model'
-
 import { PIECES } from './pieces-seed'
 
 
@@ -14,9 +13,10 @@ import { PIECES } from './pieces-seed'
 export class BoardService {
   boards: FirebaseListObservable<any[]>;
   pieces: FirebaseListObservable<any[]>;
+  piecesArray: Piece[] = []
 
   constructor(public database: AngularFireDatabase) {
-    this.boards = database.list('boards');
+    this.boards = database.list('boards', { preserveSnapshot: true});
     this.pieces = database.list('pieces');
   }
 
@@ -30,18 +30,44 @@ export class BoardService {
   makeBoard(boardSize: number, boardPlayer) {
     var newBoard = new Board([]);
     var boardID = this.boards.push(newBoard).key;
-    console.log(boardID)
     var rows: FirebaseListObservable<any[]> = this.database.list('/boards/' + boardID + '/rows/')
     for (var y = 0; y < boardSize; y++) {
       var newRow = new Row (y, []);
       var rowID = rows.push(newRow).key;
-      console.log(rowID)
       var cells: FirebaseListObservable<any[]> = this.database.list('/boards/' + boardID + '/rows/' + rowID + '/cells/')
       for (var x = 0; x < boardSize; x++) {
         var newCell = new Cell (x, y, boardPlayer);
         cells.push(newCell)
       }
     }
+    return boardID
+  }
+
+  displayPieces(boardKey) {
+    var coords: any[] = []
+    this.pieces.subscribe(piecesTemp => {
+      this.piecesArray = piecesTemp
+
+      this.piecesArray.forEach((piece) => {
+        piece.cells.forEach((cell) => {
+          var xCoord = piece.centerX + cell.x
+          var yCoord = piece.centerY + cell.y
+          var localBoards: Board[] = []
+          this.boards.subscribe(snapshots => {
+            snapshots.forEach((snapshot) => {
+              var board = snapshot
+              if (board.key === boardKey) {
+                debugger
+                console.log(board[yCoord][xCoord])
+              }
+            })
+          })
+          this.boards //[boardKey][yCoord][xCoord].player = this.player
+          // this.boards[boardKey][yCoord][xCoord].pieceKey = piece.key()
+        })
+      })
+    });
+    
   }
 
   testOffBoard(piece) {
