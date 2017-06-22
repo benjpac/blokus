@@ -1,3 +1,7 @@
+
+import { BoardService } from './board.service';
+
+
 import { FirebaseListObservable, AngularFireDatabase } from 'angularfire2/database';
 import { Injectable } from '@angular/core';
 
@@ -6,9 +10,15 @@ import { PIECES } from './pieces-seed'
 
 @Injectable()
 export class PieceService {
+
   // pieces: FirebaseListObservable<any>;
 
   // constructor(private database: AngularFireDatabase) {
+
+  // pieces: FirebaseListObservable<any[]>;
+
+  // constructor() {
+
   //   this.pieces = database.list('pieces');
   // }
 
@@ -16,7 +26,11 @@ export class PieceService {
   //   PIECES.forEach((piece) => {
   //     this.pieces.push(piece)
   //   })
+
   //   return this.pieces;
+
+  //   return PIECES;
+
   // }
 
   // displayPieces(pieces, board, player) {
@@ -34,6 +48,7 @@ export class PieceService {
   //   })
   //   return coords
   // }
+
 
   testOffBoard(piece) {
     piece.cells.forEach((cell) => {
@@ -113,4 +128,5 @@ export class PieceService {
       this.moveUp(piece)
     }
   }
+
 }

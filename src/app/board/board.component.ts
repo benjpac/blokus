@@ -1,44 +1,48 @@
+import { BoardService } from './../shared/board.service';
+
 import { Component, OnInit, Input } from '@angular/core';
-import { AngularDraggableModule } from 'angular2-draggable';
+
 import { Cell } from '../shared/cell.model'
 import { Piece } from './../shared/piece.model';
-import { PieceService } from './../shared/piece.service';
-import { AngularFireDatabase, FirebaseListObservable } from 'angularfire2/database';
+
 
 @Component({
   selector: 'app-board',
   templateUrl: './board.component.html',
   styleUrls: ['./board.component.css'],
-  providers: [PieceService]
+  providers: [BoardService]
 })
 export class BoardComponent implements OnInit {
   @Input() boardSize: number;
   @Input() player: string;
-  boards: FirebaseListObservable<any[]>;
   board: any[] = []
-  pieces: FirebaseListObservable<any[]>;
+  pieces: Piece[] = []
   activeCells: Cell[] = []
-  constructor(private pieceService: PieceService) { }
+  boards;
+  constructor(private boardService: BoardService) { }
 
-  displayPieces() {
-    var coords: any[] = []
-    this.pieces.forEach((piece) => {
-      piece.cells.forEach((cell) => {
-        var xCoord = piece.centerX + cell.x
-        var yCoord = piece.centerY + cell.y
-        this.board[yCoord][xCoord].player = this.player
-        this.board[yCoord][xCoord].pieceKey = piece.key()
-      })
-    })
 
-    coords.forEach((xy) => {
+    // coords.forEach((xy) => {
+    //
+    // })
+  // }
 
-    })
-  }
+  // displayPieces() {
+  //   var coords: any[] = []
+  //   this.pieces.forEach((piece) => {
+  //     piece.cells.forEach((cell) => {
+  //       var xCoord = piece.centerX + cell.x
+  //       var yCoord = piece.centerY + cell.y
+  //       this.board[yCoord][xCoord].player = this.player
+  //       this.board[yCoord][xCoord].pieceKey = piece.key()
+  //     })
+  //   })
+  // }
 
-  moveRight() {
-    this.pieceService.moveRight(this.pieces[this.pieces.length - 1])
-  }
+
+  // moveRight() {
+  //   this.pieceService.moveRight(this.pieces[this.pieces.length - 1])
+  // }
 
   ngOnInit() {
     var boardKey = this.boards.push(this.board).key
@@ -51,7 +55,7 @@ export class BoardComponent implements OnInit {
     }
 
 
-    this.displayPieces();
+    // this.displayPieces(){}
     // if (this.player != "All") { // test if board is individual or shared.
     //   this.pieces = this.pieceService.initializePieces()
     //   var coords: any[] = []
@@ -70,9 +74,8 @@ export class BoardComponent implements OnInit {
 
 
     if (this.player != "All") {
-      console.log("initializedPieces")
-      this.pieces = this.pieceService.initializePieces()
-      this.displayPieces()
+      this.pieces = this.boardService.initializePieces(boardKey)
+      this.boardService.displayPieces(boardKey)
     }
   }
 
