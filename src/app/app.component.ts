@@ -9,7 +9,6 @@ import * as firebase from 'firebase/app';
 import { Observable } from 'rxjs/Observable';
 import { AngularFireAuth } from 'angularfire2/auth';
 import { AuthService } from './auth.service';
-import { PieceService } from './shared/piece.service';
 import { Component, OnInit } from '@angular/core';
 
 import { BoardComponent } from './board/board.component';
@@ -19,14 +18,11 @@ import { BoardComponent } from './board/board.component';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css'],
 
-  providers: [
-    AuthService,
-    PieceService
-  ]
+  providers: [AuthService]
 
 })
 export class AppComponent {
-  constructor(private authService: AuthService, private pieceService: PieceService) {
+  constructor(private authService: AuthService) {
    }
 
   personalSize = 17;
@@ -38,6 +34,4 @@ export class AppComponent {
   onLogin(status) {
     this.login = status;
   }
-
-  // ngOnInit() {}
 }

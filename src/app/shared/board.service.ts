@@ -51,12 +51,14 @@ export class BoardService {
       var pieces = snapshot.pieces
       for (let pieceKey in pieces) {
         var piece = pieces[pieceKey]
-        piece.cells.forEach(cell => {
+         piece.cells.forEach(cell => {
           var xCoord = piece.centerX + cell.x;
           var yCoord = piece.centerY + cell.y;
+          
           coords.push([yCoord, xCoord, pieceKey])
+
         });
-      }
+       }
     })  
     console.log(coords)
     coords.forEach(cell => {
@@ -66,7 +68,7 @@ export class BoardService {
     this.database.object('/boards/' + boardKey).subscribe(snapshot => {
       console.log(snapshot);
       return snapshot
-    }) // SO EASY. use the board key in the url to grab the board you want.
+    }) 
   }
 
   testOffBoard(piece) {

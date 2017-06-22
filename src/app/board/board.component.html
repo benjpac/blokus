@@ -1,7 +1,7 @@
 
 <table >
   <tr *ngFor="let row of board">
-    <td [ngClass]="cell.pieceKey"  *ngFor="let cell of row.cells" (click)='yell($event)'></td>
+    <td [ngClass]="cell.pieceKey"  *ngFor="let cell of row.cells" (click)='yell($event)'>{{cell.player}}</td>
   </tr>
 </table>
 
