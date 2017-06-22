@@ -17,7 +17,7 @@ import { Piece } from './../shared/piece.model';
 export class BoardComponent implements OnInit {
   @Input() boardSize: number;
   @Input() player: string;
-  board: any//FirebaseObjectObservable<any>;
+  board: any
   pieces: Piece[] = []
   activeCells: Cell[] = []
 
@@ -27,9 +27,12 @@ export class BoardComponent implements OnInit {
   getBoard(boardKey) {
     this.database.object('/boards/' + boardKey).subscribe(temp => {
       this.board = temp.rows
-
     })
   }
+
+  // moveRight() {
+  //   this.boardService.moveRight()
+  // }
 
   ngOnInit() {
     var boardKey = this.boardService.makeBoard(this.boardSize, this.player)
