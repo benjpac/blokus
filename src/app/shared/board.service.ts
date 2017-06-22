@@ -68,7 +68,7 @@ export class BoardService {
     this.database.object('/boards/' + boardKey).subscribe(snapshot => {
       console.log(snapshot);
       return snapshot
-    }) // SO EASY. use the board key in the url to grab the board you want.
+    }) 
   }
 
   testOffBoard(piece) {
