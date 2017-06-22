@@ -78,10 +78,23 @@ export class BoardComponent implements OnInit {
       this.boardService.displayPieces(boardKey)
     }
   }
+  clicker;
+  yell(event){
+
+    if(event.srcElement.attributes.class.value == 'blue'){
+      this.clicker = 'blue'
+    } else if(event.srcElement.attributes.class.value == 'none'){
+      event.srcElement.attributes.class.value = 'blue'
+    }
+    console.log(this.clicker)
+    console.log(event.srcElement.attributes.class.value)
+  }
 
   playTest(cell){
     if(cell == 'Ben'){
       return 'blue'
+    } else {
+      return 'none'
     }
   }
 }

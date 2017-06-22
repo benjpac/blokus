@@ -11,42 +11,13 @@ import { PIECES } from './pieces-seed'
 @Injectable()
 export class PieceService {
 
-  // pieces: FirebaseListObservable<any>;
+  clicker;
+  setClicker(input){
+    this.clicker = input;
+  }
+  // initializePieces(): Promise<Piece[]> {
+  //   return Promise.resolve(PIECES);
 
-  // constructor(private database: AngularFireDatabase) {
-
-  // pieces: FirebaseListObservable<any[]>;
-
-  // constructor() {
-
-  //   this.pieces = database.list('pieces');
-  // }
-
-  // initializePieces(): Piece[] {
-  //   PIECES.forEach((piece) => {
-  //     this.pieces.push(piece)
-  //   })
-
-  //   return this.pieces;
-
-  //   return PIECES;
-
-  // }
-
-  // displayPieces(pieces, board, player) {
-  //   var coords: any[] = []
-  //   pieces.forEach((piece) => {
-  //     piece.cells.forEach((cell) => {
-  //       var xCoord = piece.centerX + cell.x
-  //       var yCoord = piece.centerY + cell.y
-  //       coords.push([xCoord, yCoord])
-  //     })
-  //   })
-
-  //   coords.forEach((xy) => {
-  //     board[xy[1]][xy[0]].player = player
-  //   })
-  //   return coords
   // }
 
 

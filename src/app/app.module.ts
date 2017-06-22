@@ -14,6 +14,7 @@ import { AngularFireAuth } from 'angularfire2/auth';
 import { HttpModule } from '@angular/http';
 import { FormsModule } from '@angular/forms';
 import { LoginComponent } from './login/login.component';
+import { ChatFilterPipe } from './chat-filter.pipe';
 
 export const firebaseConfig = {
   apiKey: masterFirebaseConfig.apiKey,
@@ -39,6 +40,7 @@ const routes: Routes = [
     AppComponent,
     BoardComponent,
     LoginComponent,
+    ChatFilterPipe,
   ],
   imports: [
     BrowserModule,
