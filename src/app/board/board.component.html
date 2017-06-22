@@ -1,7 +1,11 @@
-<table>
-  <tr *ngFor="let row of board">
-    <td [ngClass]="cell.pieceKey"  *ngFor="let cell of row.cells" (click)='yell($event)'>{{cell.player}}</td>
-  </tr>
-</table>
+<div class="col-md-12">
+  <table>
+    <tr *ngFor="let row of board">
+      <td [ngClass]="cell.pieceKey"  *ngFor="let cell of row.cells" (click)='yell($event)'>{{cell.player}}</td>
+    </tr>
+  </table>
+  <br>
+  <button md-raised-button (click)="moveRight()">Move Right</button>
+  <br>
+</div>
 
-<button md-raised-button (click)="moveRight()">Move Right</button>
