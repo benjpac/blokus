@@ -1,8 +1,8 @@
 
 <table >
   <tr *ngFor="let row of board">
-    <td  *ngFor="let cell of row" [class]="playTest(cell.player)" (click)='yell($event)'></td>
+    <td *ngFor="let cell of row.cells" [class]="playTest(cell.player)" (click)='yell($event)'></td>
   </tr>
 </table>
 
-<button (click)="moveRight()">Move Right</button>
+<button md-raised-button (click)="moveRight()">Move Right</button>
