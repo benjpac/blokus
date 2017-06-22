@@ -21,7 +21,6 @@ export class BoardComponent implements OnInit {
   pieces: Piece[] = []
   activeCells: Cell[] = []
 
-
   constructor(private boardService: BoardService, public database: AngularFireDatabase) { }
 
   getBoard(boardKey) {
@@ -30,9 +29,9 @@ export class BoardComponent implements OnInit {
     })
   }
 
-  // moveRight() {
-  //   this.boardService.moveRight()
-  // }
+  wipeDatabase() {
+    this.boardService.wipeDatabase()
+  }
 
   ngOnInit() {
     var boardKey = this.boardService.makeBoard(this.boardSize, this.player)
