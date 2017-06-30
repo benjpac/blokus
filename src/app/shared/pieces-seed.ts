@@ -20,7 +20,7 @@ export const PIECES: Piece[] = [
   },
   {
     board: 0,
-    player: " ",
+    player: "",
     centerX: 5,
     centerY: 2,
     active: false,

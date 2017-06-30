@@ -70,7 +70,7 @@ export class BoardService {
   }
 
   movePiece(boardKey, pieceKey) {
-    var player: string
+    var player: any
     this.database.object('/boards/' + boardKey + "/pieces/" + pieceKey).take(1).subscribe(temp => {
       player = piece.player     
       var piece = this.moveRight(temp)
