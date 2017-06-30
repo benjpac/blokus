@@ -4,7 +4,7 @@ import { Cell } from './cell.model'
 export const PIECES: Piece[] = [
   {
     board: 0,
-    player: 0,
+    player: "",
     centerX: 1,
     centerY: 1,
     active: false,
@@ -12,7 +12,7 @@ export const PIECES: Piece[] = [
   },
   {
     board: 0,
-    player: 0,
+    player: "",
     centerX: 3,
     centerY: 1,
     active: false,
@@ -20,7 +20,7 @@ export const PIECES: Piece[] = [
   },
   {
     board: 0,
-    player: 0,
+    player: " ",
     centerX: 5,
     centerY: 2,
     active: false,
@@ -28,7 +28,7 @@ export const PIECES: Piece[] = [
   },
   {
     board: 0,
-    player: 0,
+    player: "",
     centerX: 7,
     centerY: 1,
     active: false,
@@ -36,7 +36,7 @@ export const PIECES: Piece[] = [
   },
   {
     board: 0,
-    player: 0,
+    player: "",
     centerX: 10,
     centerY: 2,
     active: false,
@@ -44,7 +44,7 @@ export const PIECES: Piece[] = [
   },
   {
     board: 0,
-    player: 0,
+    player: "",
     centerX: 13,
     centerY: 2,
     active: false,
@@ -52,7 +52,7 @@ export const PIECES: Piece[] = [
   },
   {
     board: 0,
-    player: 0,
+    player: "",
     centerX: 1,
     centerY: 4,
     active: false,
@@ -60,7 +60,7 @@ export const PIECES: Piece[] = [
   },
   {
     board: 0,
-    player: 0,
+    player: "",
     centerX: 4,
     centerY: 5,
     active: false,
@@ -68,7 +68,7 @@ export const PIECES: Piece[] = [
   },
   {
     board: 0,
-    player: 0,
+    player: "",
     centerX: 7,
     centerY: 5,
     active: false,
@@ -76,7 +76,7 @@ export const PIECES: Piece[] = [
   },
   {
     board: 0,
-    player: 0,
+    player: "",
     centerX: 10,
     centerY: 6,
     active: false,
@@ -84,7 +84,7 @@ export const PIECES: Piece[] = [
   },
   {
     board: 0,
-    player: 0,
+    player: "",
     centerX: 1,
     centerY: 9,
     active: false,
@@ -92,7 +92,7 @@ export const PIECES: Piece[] = [
   },
   {
     board: 0,
-    player: 0,
+    player: "",
     centerX: 12,
     centerY: 14,
     active: false,
@@ -100,7 +100,7 @@ export const PIECES: Piece[] = [
   },
   {
     board: 0,
-    player: 0,
+    player: "",
     centerX: 13,
     centerY: 8,
     active: false,
@@ -108,7 +108,7 @@ export const PIECES: Piece[] = [
   },
   {
     board: 0,
-    player: 0,
+    player: "",
     centerX: 4,
     centerY: 9,
     active: false,
@@ -116,7 +116,7 @@ export const PIECES: Piece[] = [
   },
   {
     board: 0,
-    player: 0,
+    player: "",
     centerX: 2,
     centerY: 14,
     active: false,
@@ -124,7 +124,7 @@ export const PIECES: Piece[] = [
   },
   {
     board: 0,
-    player: 0,
+    player: "",
     centerX: 7,
     centerY: 9,
     active: false,
@@ -132,7 +132,7 @@ export const PIECES: Piece[] = [
   },
   {
     board: 0,
-    player: 0,
+    player: "",
     centerX: 9,
     centerY: 11,
     active: false,
@@ -140,7 +140,7 @@ export const PIECES: Piece[] = [
   },
   {
     board: 0,
-    player: 0,
+    player: "",
     centerX: 11,
     centerY: 11,
     active: false,
@@ -148,7 +148,7 @@ export const PIECES: Piece[] = [
   },
   {
     board: 0,
-    player: 0,
+    player: "",
     centerX: 6,
     centerY: 14,
     active: false,
@@ -156,7 +156,7 @@ export const PIECES: Piece[] = [
   },
   {
     board: 0,
-    player: 0,
+    player: "",
     centerX: 9,
     centerY: 14,
     active: false,

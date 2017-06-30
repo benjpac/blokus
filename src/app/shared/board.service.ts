@@ -71,7 +71,8 @@ export class BoardService {
 
   movePiece(boardKey, pieceKey) {
     var player: string
-    this.database.object('/boards/' + boardKey + "/pieces/" + pieceKey).take(1).subscribe(temp => {     
+    this.database.object('/boards/' + boardKey + "/pieces/" + pieceKey).take(1).subscribe(temp => {
+      player = piece.player     
       var piece = this.moveRight(temp)
       var fbPiece: FirebaseObjectObservable<any> = this.database.object('/boards/' + boardKey + "/pieces/" +  pieceKey)
       fbPiece.update({ board: piece.board,
