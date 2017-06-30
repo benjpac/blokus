@@ -1,6 +1,9 @@
 import { AngularFireDatabase, FirebaseListObservable,FirebaseObjectObservable } from 'angularfire2/database';
 
 import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs/Rx'
+import 'rxjs/add/operator/map'
+import 'rxjs/add/operator/take'
 
 import { Cell } from './cell.model'
 import { Row } from './row.model'
@@ -12,14 +15,13 @@ import { PIECES } from './pieces-seed'
 @Injectable()
 export class BoardService {
   boards: FirebaseListObservable<any[]>;
-  piecesArray: Piece[] = []
-  
+  pieces: FirebaseListObservable<any[]>;
 
   constructor(public database: AngularFireDatabase) {
   this.boards = database.list('boards'); //   preserve snapshot allows board.key to work in display pieces
   }
 
-  initializePieces(boardID): Piece[] {
+  initializePieces(boardID) {
     var pieces: FirebaseListObservable<any[]> = this.database.list('/boards/' + boardID + '/pieces/')
     PIECES.forEach((piece) => {
       pieces.push(piece);
@@ -46,11 +48,11 @@ export class BoardService {
   displayPieces(boardKey, player) {
     var coords: any[] = [];
 
-    var board = this.database.object('/boards/' + boardKey) // SO EASY. use the board key in the url to grab the board you want.
+    var board = this.database.object('/boards/' + boardKey).take(1) // SO EASY. use the board key in the url to grab the board you want.
     board.subscribe(snapshot => {
       var pieces = snapshot.pieces
       for (let pieceKey in pieces) {
-        this.movePiece(boardKey, pieceKey, "this.moveRight")
+        this.movePiece(boardKey, pieceKey)
         var piece = pieces[pieceKey]
          piece.cells.forEach(cell => {
           var xCoord = piece.centerX + cell.x;
@@ -59,19 +61,19 @@ export class BoardService {
         });
        }
     })  
-    console.log(coords)
+
     coords.forEach(cell => {
-      this.database.object('/boards/' + boardKey + "/rows/" + cell[0] + "/cells/" + cell[1]).update({ pieceKey: cell[2], player: player })
-      // console.log(this.database.object('/boards/' + boardKey + "/rows/" + set[1] + "/cells/" + set[0]))
+      var selectedCell: FirebaseObjectObservable<any> = this.database.object('/boards/' + boardKey + "/rows/" + cell[0] + "/cells/" + cell[1])
+      selectedCell.update({ pieceKey: cell[2], player: player })
     })
-    this.database.object('/boards/' + boardKey).subscribe(snapshot => { return snapshot }) 
+    this.database.object('/boards/' + boardKey).take(1).subscribe(snapshot => { return snapshot }) 
   }
 
-  movePiece(boardKey, pieceKey, callback) {
-    this.database.object('/boards/' + boardKey + "/pieces/" + pieceKey).subscribe(temp => {
-      console.log(callback);      
-      var piece = callback(temp)
-      // this.database.object('/boards/' + boardKey + "/pieces/" +  pieceKey).update({ board: piece.board, player: piece.player, centerX: piece.centerX, centerY: piece.centerY, active: piece.active, cells: piece.cells, })
+  movePiece(boardKey, pieceKey) {
+    this.database.object('/boards/' + boardKey + "/pieces/" + pieceKey).take(1).subscribe(temp => {     
+      var piece = this.moveRight(temp)
+      var fbPiece: FirebaseObjectObservable<any> = this.database.object('/boards/' + boardKey + "/pieces/" +  pieceKey)
+      fbPiece.update({ board: piece.board, player: piece.player, centerX: piece.centerX, centerY: piece.centerY, active: piece.active, cells: piece.cells, })
     })
   }
 
