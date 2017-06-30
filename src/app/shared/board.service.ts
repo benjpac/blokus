@@ -18,12 +18,13 @@ export class BoardService {
   pieces: FirebaseListObservable<any[]>;
 
   constructor(public database: AngularFireDatabase) {
-  this.boards = database.list('boards'); //   preserve snapshot allows board.key to work in display pieces
+  this.boards = database.list('boards'); 
   }
 
-  initializePieces(boardID) {
+  initializePieces(boardID, player) {
     var pieces: FirebaseListObservable<any[]> = this.database.list('/boards/' + boardID + '/pieces/')
     PIECES.forEach((piece) => {
+      piece.player = player
       pieces.push(piece);
     })
     return PIECES;
@@ -69,6 +70,7 @@ export class BoardService {
   }
 
   movePiece(boardKey, pieceKey) {
+    var player: string
     this.database.object('/boards/' + boardKey + "/pieces/" + pieceKey).take(1).subscribe(temp => {     
       var piece = this.moveRight(temp)
       var fbPiece: FirebaseObjectObservable<any> = this.database.object('/boards/' + boardKey + "/pieces/" +  pieceKey)
@@ -80,11 +82,6 @@ export class BoardService {
                        cells: piece.cells, 
       });
     });
-  }
-
-  wipeDatabase() {
-    debugger
-    this.database.list('/boards/').remove()
   }
 
   testOffBoard(piece) {

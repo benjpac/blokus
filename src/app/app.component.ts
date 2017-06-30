@@ -22,7 +22,7 @@ import { BoardComponent } from './board/board.component';
 
 })
 export class AppComponent {
-  constructor(private authService: AuthService) {
+  constructor(private authService: AuthService, public database: AngularFireDatabase) {
    }
 
   personalSize = 17;
@@ -36,5 +36,14 @@ export class AppComponent {
 
   onLogin(status) {
     this.login = status;
+  }
+
+  wipeDatabase() {
+    debugger
+    var test: FirebaseObjectObservable<any[]> = this.database.object('/')
+    test.subscribe(snapshot => {
+      var db = snapshot
+      debugger
+    })
   }
 }

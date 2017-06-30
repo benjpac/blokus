@@ -32,16 +32,12 @@ export class BoardComponent implements OnInit {
     })
   }
 
-  wipeDatabase() {
-    this.boardService.wipeDatabase()
-  }
-
   ngOnInit() {
     this.boardKey = this.boardService.makeBoard(this.boardSize, this.player)
 
     if (this.player != "All") {
 
-      this.pieces = this.boardService.initializePieces(this.boardKey)
+      this.pieces = this.boardService.initializePieces(this.boardKey, this.player)
     }
 
     this.boardService.displayPieces(this.boardKey, this.player)
