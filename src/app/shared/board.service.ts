@@ -48,11 +48,10 @@ export class BoardService {
   displayPieces(boardKey, player) {
     var coords: any[] = [];
 
-    var board = this.database.object('/boards/' + boardKey).take(1) // SO EASY. use the board key in the url to grab the board you want.
+    var board = this.database.object('/boards/' + boardKey).take(1) 
     board.subscribe(snapshot => {
       var pieces = snapshot.pieces
       for (let pieceKey in pieces) {
-        this.movePiece(boardKey, pieceKey)
         var piece = pieces[pieceKey]
          piece.cells.forEach(cell => {
           var xCoord = piece.centerX + cell.x;
@@ -73,8 +72,14 @@ export class BoardService {
     this.database.object('/boards/' + boardKey + "/pieces/" + pieceKey).take(1).subscribe(temp => {     
       var piece = this.moveRight(temp)
       var fbPiece: FirebaseObjectObservable<any> = this.database.object('/boards/' + boardKey + "/pieces/" +  pieceKey)
-      fbPiece.update({ board: piece.board, player: piece.player, centerX: piece.centerX, centerY: piece.centerY, active: piece.active, cells: piece.cells, })
-    })
+      fbPiece.update({ board: piece.board,
+                       player: piece.player, 
+                       centerX: piece.centerX, 
+                       centerY: piece.centerY, 
+                       active: piece.active, 
+                       cells: piece.cells, 
+      });
+    });
   }
 
   wipeDatabase() {

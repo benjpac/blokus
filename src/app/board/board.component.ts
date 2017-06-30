@@ -18,8 +18,11 @@ export class BoardComponent implements OnInit {
   @Input() boardSize: number;
   @Input() player: string;
   board: any
+  boardKey: string
   pieces: Piece[] = []
   activeCells: Cell[] = []
+  clickedPieceKey: string;
+  clickedPiece: Piece;
 
   constructor(private boardService: BoardService, public database: AngularFireDatabase) { }
 
@@ -34,27 +37,27 @@ export class BoardComponent implements OnInit {
   }
 
   ngOnInit() {
-    var boardKey = this.boardService.makeBoard(this.boardSize, this.player)
+    this.boardKey = this.boardService.makeBoard(this.boardSize, this.player)
 
     if (this.player != "All") {
 
-      this.pieces = this.boardService.initializePieces(boardKey)
+      this.pieces = this.boardService.initializePieces(this.boardKey)
     }
 
-    this.boardService.displayPieces(boardKey, this.player)
-    this.getBoard(boardKey)
+    this.boardService.displayPieces(this.boardKey, this.player)
+    this.getBoard(this.boardKey)
   }
 
-  clicker;
-  yell(event){
-    this.clicker = event.srcElement.attributes.class.value;
-    // if(event.srcElement.attributes.class.value == 'blue'){
-    //   this.clicker = 'blue'
-    // } else if(event.srcElement.attributes.class.value == 'none'){
-    //   event.srcElement.attributes.class.value = 'blue'
-    // }
-    console.log(this.clicker)
-    console.log(event.srcElement.attributes.class.value)
+  
+  getPieceID(event){
+    var string = event.srcElement.attributes.class.value;
+    console.log(string)
+    this.clickedPieceKey = string.substring(string.indexOf("-"))
+    console.log(this.clickedPieceKey)
+  }
+
+  moveRight() {
+    this.boardService.movePiece(this.boardKey, this.clickedPieceKey)
   }
 
   playTest(cell){
@@ -65,12 +68,12 @@ export class BoardComponent implements OnInit {
     }
   }
 
-  findStuff(cell){
+  concatClass(cell){
     if(cell.player)
     {
       var player = cell.player;
-      var piece = cell.pieceKey;
-      return player +" "+ piece;
+      var pieceKey = cell.pieceKey;
+      return player + " " + pieceKey;
     }    
   }
 }

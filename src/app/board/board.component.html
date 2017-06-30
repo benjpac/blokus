@@ -1,10 +1,13 @@
 <table>
   <tr *ngFor="let row of board">
-    <td [ngClass]='findStuff(cell)' *ngFor="let cell of row.cells" (click)='yell($event)'></td>
+    <td [ngClass]='concatClass(cell)' *ngFor="let cell of row.cells" (click)='getPieceID($event)'></td>
   </tr>
 </table>
-<button md-raised-button (click)="moveRight()">Move Left</button>
-<button md-raised-button (click)="moveRight()">Move Right</button>
-<button md-raised-button (click)="moveRight()">Move Up</button>
-<button md-raised-button (click)="moveRight()">Move Down</button>
+<div *ngIf="clickedPieceKey">
+  <button md-raised-button (click)="moveLeft(clickedPieceKey)">Move Left</button>
+  <button md-raised-button (click)="moveRight()">Move Right</button>
+  <button md-raised-button (click)="moveUp(clickedPieceKey)">Move Up</button>
+  <button md-raised-button (click)="moveDown(clickedPieceKey)">Move Down</button>
+</div>
+
 <!--<button md-raised-button (click)="wipeDatabase()">Wipe Database</button>-->
