@@ -5,7 +5,7 @@
 </table>
 <div *ngIf="clickedPieceKey">
   <button md-raised-button (click)="moveLeft(clickedPieceKey)">Move Left</button>
-  <button md-raised-button (click)="moveRight()">Move Right</button>
+  <button md-raised-button (click)="movePiece('this.moveRight: () => void')">Move Right</button>
   <button md-raised-button (click)="moveUp(clickedPieceKey)">Move Up</button>
   <button md-raised-button (click)="moveDown(clickedPieceKey)">Move Down</button>
 </div>

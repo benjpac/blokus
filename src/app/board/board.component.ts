@@ -52,8 +52,8 @@ export class BoardComponent implements OnInit {
     console.log(this.clickedPieceKey)
   }
 
-  moveRight() {
-    this.boardService.movePiece(this.boardKey, this.clickedPieceKey)
+  movePiece(callback: () => void) {
+    this.boardService.movePiece(this.boardKey, this.clickedPieceKey, callback)
   }
 
   playTest(cell){

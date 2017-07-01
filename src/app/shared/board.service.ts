@@ -48,41 +48,66 @@ export class BoardService {
 
   displayPieces(boardKey, player) {
     var coords: any[] = [];
-
     var board = this.database.object('/boards/' + boardKey).take(1) 
     board.subscribe(snapshot => {
       var pieces = snapshot.pieces
       for (let pieceKey in pieces) {
         var piece = pieces[pieceKey]
-         piece.cells.forEach(cell => {
+        piece.cells.forEach(cell => {
           var xCoord = piece.centerX + cell.x;
           var yCoord = piece.centerY + cell.y;
-          coords.push([yCoord, xCoord, pieceKey])
+          coords.push([yCoord, xCoord, pieceKey, player])
         });
        }
     })  
-
-    coords.forEach(cell => {
-      var selectedCell: FirebaseObjectObservable<any> = this.database.object('/boards/' + boardKey + "/rows/" + cell[0] + "/cells/" + cell[1])
-      selectedCell.update({ pieceKey: cell[2], player: player })
-    })
-    this.database.object('/boards/' + boardKey).take(1).subscribe(snapshot => { return snapshot }) 
+    this.updateCells(boardKey, coords)
   }
 
-  movePiece(boardKey, pieceKey) {
+  updateCells(boardKey, coordsArray) {
+    coordsArray.forEach(cell => {
+      var selectedCell: FirebaseObjectObservable<any> = this.database.object('/boards/' + boardKey + "/rows/" + cell[0] + "/cells/" + cell[1])
+      selectedCell.update({ pieceKey: cell[2], player: cell[3] })
+    })
+  }
+
+  movePiece(boardKey, pieceKey, callback) {
     var player: any
-    this.database.object('/boards/' + boardKey + "/pieces/" + pieceKey).take(1).subscribe(temp => {
-      player = piece.player     
-      var piece = this.moveRight(temp)
-      var fbPiece: FirebaseObjectObservable<any> = this.database.object('/boards/' + boardKey + "/pieces/" +  pieceKey)
-      fbPiece.update({ board: piece.board,
-                       player: piece.player, 
-                       centerX: piece.centerX, 
-                       centerY: piece.centerY, 
-                       active: piece.active, 
-                       cells: piece.cells, 
+    this.database.object('/boards/' + boardKey + "/pieces/" + pieceKey).take(1).subscribe(oldPiece => {
+      
+      var oldCoords = []
+      oldPiece.cells.forEach(cell => {
+        var xCoord = oldPiece.centerX + cell.x;
+        var yCoord = oldPiece.centerY + cell.y;
+        oldCoords.push([yCoord, xCoord, pieceKey, ""])
       });
+      
+      this.updateCells(boardKey, oldCoords)
+
+      var newCoords = []
+      player = oldPiece.player
+      console.log(callback)
+      debugger
+      console.log(callback(oldPiece))
+      var newPiece = this.moveRight(oldPiece)
+      newPiece.cells.forEach(cell => {
+        var xCoord = newPiece.centerX + cell.x;
+        var yCoord = newPiece.centerY + cell.y;
+        newCoords.push([yCoord, xCoord, pieceKey, player])
+      });
+      console.log(oldCoords, newCoords)
+      this.updateCells(boardKey, newCoords)
+
+      // var fbPiece: FirebaseObjectObservable<any> = this.database.object('/boards/' + boardKey + "/pieces/" +  pieceKey)
+      // fbPiece.update({ board: piece.board,
+      //                  player: piece.player, 
+      //                  centerX: piece.centerX, 
+      //                  centerY: piece.centerY, 
+      //                  active: piece.active, 
+      //                  cells: piece.cells, 
+      // });
     });
+
+    this.displayPieces(boardKey, player)
   }
 
   testOffBoard(piece) {
