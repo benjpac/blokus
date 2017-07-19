@@ -70,7 +70,7 @@ export class BoardService {
     })
   }
 
-  movePiece(boardKey, pieceKey, callback) {
+  movePiece(boardKey: string, pieceKey: string, callback: () => any ) {
     var player: any
     this.database.object('/boards/' + boardKey + "/pieces/" + pieceKey).take(1).subscribe(oldPiece => {
       
@@ -87,7 +87,6 @@ export class BoardService {
       player = oldPiece.player
       console.log(callback)
       debugger
-      console.log(callback(oldPiece))
       var newPiece = this.moveRight(oldPiece)
       newPiece.cells.forEach(cell => {
         var xCoord = newPiece.centerX + cell.x;
