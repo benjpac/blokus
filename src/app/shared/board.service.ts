@@ -115,21 +115,24 @@ export class BoardService {
 
     // this.displayPieces(boardKey, player)
   }
-
   testOffBoard(piece) {
-    piece.cells.forEach((cell) => {
-      if (cell.x < 0 || cell.y < 0 || cell.x > 19 || cell.y > 19) {
-        return true
-      }
-    })
-    return false
+    return function(cell, index, array) {
+      return (piece.centerX + cell.x < 0 || piece.centerY + cell.y < 0 || piece.centerX + cell.x > 19 || piece.centerY + cell.y > 19)
+    }
+  }
+
+  testMove(piece) {
+    if (piece.cells.some(this.testOffBoard(piece))) {
+      return true
+      // alert - piece off board
+    }
   }
 
   flipH(piece: Piece) {
     piece.cells.forEach((cell) => {
       cell.x = -cell.x
     })
-    if (this.testOffBoard(piece)) {
+    if (this.testMove(piece)) {
       this.flipH(piece)
     }
     return piece
@@ -139,7 +142,7 @@ export class BoardService {
     piece.cells.forEach((cell) => {
       cell.y = -cell.y
     })
-    if (this.testOffBoard(piece)) {
+    if (this.testMove(piece)) {
       this.flipV(piece)
     }
     return piece
@@ -151,7 +154,7 @@ export class BoardService {
       cell.x = cell.y
       cell.y = -tempX
     })
-    if (this.testOffBoard(piece)) {
+    if (this.testMove(piece)) {
       this.rotCounterClock(piece)
     }
   }
@@ -162,7 +165,7 @@ export class BoardService {
       cell.x = -cell.y
       cell.y = tempX
     })
-    if (this.testOffBoard(piece)) {
+    if (this.testMove(piece)) {
       this.rotClock(piece)
     }
     return piece
@@ -170,7 +173,7 @@ export class BoardService {
 
   moveLeft(piece: Piece) {
     piece.centerX -= 1
-    if (this.testOffBoard(piece)) {
+    if (this.testMove(piece)) {
       this.moveRight(piece)
     }
     return piece
@@ -178,7 +181,7 @@ export class BoardService {
 
   moveRight(piece: Piece) {
     piece.centerX += 1
-    if (this.testOffBoard(piece)) {
+    if (this.testMove(piece)) {
       this.moveLeft(piece)
     }
     return piece
@@ -186,7 +189,7 @@ export class BoardService {
 
   moveUp(piece: Piece) {
     piece.centerY -= 1
-    if (this.testOffBoard(piece)) {
+    if (this.testMove(piece)) {
       this.moveDown(piece)
     }
     return piece
@@ -194,7 +197,7 @@ export class BoardService {
 
   moveDown(piece: Piece) {
     piece.centerY += 1
-    if (this.testOffBoard(piece)) {
+    if (this.testMove(piece)) {
       this.moveUp(piece)
     }
     return piece
