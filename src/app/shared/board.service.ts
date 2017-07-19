@@ -60,13 +60,20 @@ export class BoardService {
         });
        }
     })  
-    this.updateCells(boardKey, coords)
+    this.drawCellsAsPiece(boardKey, coords)
   }
 
-  updateCells(boardKey, coordsArray) {
+  drawCellsAsPiece(boardKey, coordsArray) {
     coordsArray.forEach(cell => {
       var selectedCell: FirebaseObjectObservable<any> = this.database.object('/boards/' + boardKey + "/rows/" + cell[0] + "/cells/" + cell[1])
       selectedCell.update({ pieceKey: cell[2], player: cell[3] })
+    })
+  }
+
+  clearCells(boardKey, coordsArray) {
+    coordsArray.forEach(cell => {
+      var selectedCell: FirebaseObjectObservable<any> = this.database.object('/boards/' + boardKey + "/rows/" + cell[0] + "/cells/" + cell[1])
+      selectedCell.update({ pieceKey: "", player: "" })
     })
   }
 
@@ -74,39 +81,39 @@ export class BoardService {
     var player: any
     this.database.object('/boards/' + boardKey + "/pieces/" + pieceKey).take(1).subscribe(oldPiece => {
       
+      // gather up coordinates of old piece
       var oldCoords = []
       oldPiece.cells.forEach(cell => {
         var xCoord = oldPiece.centerX + cell.x;
         var yCoord = oldPiece.centerY + cell.y;
-        oldCoords.push([yCoord, xCoord, pieceKey, ""])
+        oldCoords.push([yCoord, xCoord])
       });
-      
-      this.updateCells(boardKey, oldCoords)
+      // wipe them on the board
+      this.clearCells(boardKey, oldCoords)
 
       var newCoords = []
       player = oldPiece.player
-      console.log(callback)
-      debugger
+
+      // Gather cells of new piece
       var newPiece = this.moveRight(oldPiece)
       newPiece.cells.forEach(cell => {
         var xCoord = newPiece.centerX + cell.x;
         var yCoord = newPiece.centerY + cell.y;
         newCoords.push([yCoord, xCoord, pieceKey, player])
       });
-      console.log(oldCoords, newCoords)
-      this.updateCells(boardKey, newCoords)
 
-      // var fbPiece: FirebaseObjectObservable<any> = this.database.object('/boards/' + boardKey + "/pieces/" +  pieceKey)
-      // fbPiece.update({ board: piece.board,
-      //                  player: piece.player, 
-      //                  centerX: piece.centerX, 
-      //                  centerY: piece.centerY, 
-      //                  active: piece.active, 
-      //                  cells: piece.cells, 
-      // });
+      // Redraw cells
+      this.drawCellsAsPiece(boardKey, newCoords)
+
+      var fbPiece: FirebaseObjectObservable<any> = this.database.object('/boards/' + boardKey + "/pieces/" +  pieceKey)
+      fbPiece.update({ 
+                       centerX: newPiece.centerX, 
+                       centerY: newPiece.centerY, 
+
+      });
     });
 
-    this.displayPieces(boardKey, player)
+    // this.displayPieces(boardKey, player)
   }
 
   testOffBoard(piece) {
