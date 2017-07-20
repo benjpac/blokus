@@ -10,12 +10,14 @@ import { Row } from './row.model'
 import { Board } from './board.model'
 import { Piece } from './piece.model'
 import { PIECES } from './pieces-seed'
+import { Game } from './game.model'
 
 
 @Injectable()
 export class BoardService {
   boards: FirebaseListObservable<any[]>;
-  pieces: FirebaseListObservable<any[]>;
+  sharedBoardKey: string;
+  activePieceKey: string;
 
   constructor(public database: AngularFireDatabase) {
   this.boards = database.list('boards'); 
@@ -32,7 +34,7 @@ export class BoardService {
 
   makeBoard(boardSize: number, boardPlayer) {
     var rowsArray = []
-    for (var y = 0; y < boardSize; y++) {
+    for (var y = 0; y < boardSize; y++) { 
       var cellsArray = []
       for (var x = 0; x < boardSize; x++) {
         var newCell = new Cell (x, y);
@@ -41,7 +43,7 @@ export class BoardService {
       var newRow = new Row (y, cellsArray);
       rowsArray.push(newRow)
     }
-    var newBoard = new Board(rowsArray);
+    var newBoard = new Board(rowsArray, "", "");
     var boardID = this.boards.push(newBoard).key;
     return boardID;
   }
@@ -77,9 +79,18 @@ export class BoardService {
     })
   }
 
-  movePiece(boardKey: string, pieceKey: string, callback: () => any ) {
+  switchBoard(boardKey, pieceKey) {
+    this.activePieceKey = pieceKey
+    console.log("shared boardKey" + this.sharedBoardKey)
+    var piecesFrom: FirebaseListObservable<any> = this.database.list('/boards/' + boardKey + "/pieces/" )
+    this.database.object('/boards/' + boardKey + "/pieces/" + pieceKey).take(1).subscribe(piece => {
+      piecesFrom.remove(pieceKey)
+    })  
+  }
+
+  movePiece(boardKey: string, callback: () => any ) {
     var player: any
-    this.database.object('/boards/' + boardKey + "/pieces/" + pieceKey).take(1).subscribe(oldPiece => {
+    this.database.object('/boards/' + boardKey + "/pieces/" + this.activePieceKey).take(1).subscribe(oldPiece => {
       
       // gather up coordinates of old piece
       var oldCoords = []
@@ -99,30 +110,29 @@ export class BoardService {
       newPiece.cells.forEach(cell => {
         var xCoord = newPiece.centerX + cell.x;
         var yCoord = newPiece.centerY + cell.y;
-        newCoords.push([yCoord, xCoord, pieceKey, player])
+        newCoords.push([yCoord, xCoord, this.activePieceKey, player])
       });
 
       // Redraw cells
       this.drawCellsAsPiece(boardKey, newCoords)
 
-      var fbPiece: FirebaseObjectObservable<any> = this.database.object('/boards/' + boardKey + "/pieces/" +  pieceKey)
+      var fbPiece: FirebaseObjectObservable<any> = this.database.object('/boards/' + boardKey + "/pieces/" +  this.activePieceKey)
       fbPiece.update({ 
                        centerX: newPiece.centerX, 
                        centerY: newPiece.centerY, 
-
       });
     });
-
-    // this.displayPieces(boardKey, player)
   }
-  testOffBoard(piece) {
+
+
+  testCellOffBoard(piece) {
     return function(cell, index, array) {
       return (piece.centerX + cell.x < 0 || piece.centerY + cell.y < 0 || piece.centerX + cell.x > 19 || piece.centerY + cell.y > 19)
     }
   }
 
-  testMove(piece) {
-    if (piece.cells.some(this.testOffBoard(piece))) {
+  testPieceOffBoard(piece) {
+    if (piece.cells.some(this.testCellOffBoard(piece))) {
       return true
       // alert - piece off board
     }
@@ -132,7 +142,7 @@ export class BoardService {
     piece.cells.forEach((cell) => {
       cell.x = -cell.x
     })
-    if (this.testMove(piece)) {
+    if (this.testPieceOffBoard(piece)) {
       this.flipH(piece)
     }
     return piece
@@ -142,7 +152,7 @@ export class BoardService {
     piece.cells.forEach((cell) => {
       cell.y = -cell.y
     })
-    if (this.testMove(piece)) {
+    if (this.testPieceOffBoard(piece)) {
       this.flipV(piece)
     }
     return piece
@@ -154,7 +164,7 @@ export class BoardService {
       cell.x = cell.y
       cell.y = -tempX
     })
-    if (this.testMove(piece)) {
+    if (this.testPieceOffBoard(piece)) {
       this.rotCounterClock(piece)
     }
   }
@@ -165,7 +175,7 @@ export class BoardService {
       cell.x = -cell.y
       cell.y = tempX
     })
-    if (this.testMove(piece)) {
+    if (this.testPieceOffBoard(piece)) {
       this.rotClock(piece)
     }
     return piece
@@ -173,7 +183,7 @@ export class BoardService {
 
   moveLeft(piece: Piece) {
     piece.centerX -= 1
-    if (this.testMove(piece)) {
+    if (this.testPieceOffBoard(piece)) {
       this.moveRight(piece)
     }
     return piece
@@ -181,7 +191,7 @@ export class BoardService {
 
   moveRight(piece: Piece) {
     piece.centerX += 1
-    if (this.testMove(piece)) {
+    if (this.testPieceOffBoard(piece)) {
       this.moveLeft(piece)
     }
     return piece
@@ -189,7 +199,7 @@ export class BoardService {
 
   moveUp(piece: Piece) {
     piece.centerY -= 1
-    if (this.testMove(piece)) {
+    if (this.testPieceOffBoard(piece)) {
       this.moveDown(piece)
     }
     return piece
@@ -197,7 +207,7 @@ export class BoardService {
 
   moveDown(piece: Piece) {
     piece.centerY += 1
-    if (this.testMove(piece)) {
+    if (this.testPieceOffBoard(piece)) {
       this.moveUp(piece)
     }
     return piece

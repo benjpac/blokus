@@ -2,7 +2,6 @@ import { User } from './user.model'
 // database
 import { AngularFireModule } from 'angularfire2';
 import { FirebaseListObservable } from 'angularfire2/database';
-import { FirebaseObjectObservable } from 'angularfire2/database';
 import { AngularFireDatabase} from 'angularfire2/database';
 import * as firebase from 'firebase/app';
 // auth
@@ -13,6 +12,8 @@ import { Component, OnInit } from '@angular/core';
 
 import { BoardComponent } from './board/board.component';
 
+import { Game } from './shared/game.model'
+
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -21,29 +22,34 @@ import { BoardComponent } from './board/board.component';
   providers: [AuthService]
 
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
   constructor(private authService: AuthService, public database: AngularFireDatabase) {
    }
 
-  personalSize = 17;
-  mainSize = 20
-  blue = "blue"
-  red = "red"
-  yellow = "yellow"
-  green = "green"
-  All = "All"
-  login = false;
+  games: FirebaseListObservable<any>
+  gameKey: string
+  personalSize: number = 17;
+  mainSize: number = 20
+  blue: string = "blue"
+  red: string = "red"
+  yellow: string = "yellow"
+  green: string = "green"
+  All: string = "All"
+  login: boolean = false;
+
+  ngOnInit() {
+  }
 
   onLogin(status) {
     this.login = status;
   }
 
-  wipeDatabase() {
-    debugger
-    var test: FirebaseObjectObservable<any[]> = this.database.object('/')
-    test.subscribe(snapshot => {
-      var db = snapshot
-      debugger
+   wipeDB() {
+    var boards: FirebaseListObservable<any> = this.database.list('/boards/')
+    this.database.list('/boards/').take(1).subscribe(staticBoards => {
+      staticBoards.forEach(board => {
+        boards.remove(board)
+      });
     })
   }
 }

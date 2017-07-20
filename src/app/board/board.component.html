@@ -1,6 +1,6 @@
 <table>
   <tr *ngFor="let row of board">
-    <td [ngClass]='concatClass(cell)' *ngFor="let cell of row.cells" (click)='getPieceID($event)'></td>
+    <td [ngClass]='concatClass(cell)' *ngFor="let cell of row.cells" (click)='switchBoard($event)'></td>
   </tr>
 </table>
 <div *ngIf="clickedPieceKey">
@@ -9,5 +9,3 @@
   <button md-raised-button (click)="moveUp(clickedPieceKey)">Move Up</button>
   <button md-raised-button (click)="moveDown(clickedPieceKey)">Move Down</button>
 </div>
-
-<!--<button md-raised-button (click)="wipeDatabase()">Wipe Database</button>-->

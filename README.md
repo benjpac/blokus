@@ -35,18 +35,26 @@ export var masterFirebaseConfig = {
 ## Installation Instructions
 
 * ``` NPM install ```
-
 * ``` ng-build ```
 * ``` ng-serve ```
 
+* Navigate to localhost:4200
 
-## Development server
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+## To do
 
-## Build
+* When clicked on, make piece turn active, change board to main board.
+* Make button to place piece (turn inactive), move to next player
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `-prod` flag for a production build.
+* Add to piece model and wherever it is sent to firebase: a validLocation boolean
+  * Make it change color based on boolean value
+  * Figure out how to deal with overlapping pieces - don't store active piece to database, or add the option to have two pieces at a cell, or redraw board each time (and draw active piece last?)
+
+* Add logic to test pieces
+  * If edges do not touch pieces with same player but different piece value
+  * If any corner touches one of it's own piece
+  * If not overlapping with any other piece. 
+
 
 ## Further help
 
