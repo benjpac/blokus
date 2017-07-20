@@ -19,7 +19,6 @@ export class BoardComponent implements OnInit {
   @Input() boardSize: number;
   @Input() player: string;
   @Input() gameKey: string;
-  game: FirebaseObjectObservable<Game>
   board: Board
   boardKey: string
   pieces: Piece[] = []
@@ -35,6 +34,10 @@ export class BoardComponent implements OnInit {
     })
   }
 
+  getGame() {
+    return this.database.object('/games/' + this.gameKey)
+  }
+
   ngOnInit() {
     this.boardKey = this.boardService.makeBoard(this.boardSize, this.player)
 
@@ -45,8 +48,8 @@ export class BoardComponent implements OnInit {
       this.pieces = this.boardService.initializePieces(this.boardKey, this.player)
       this.boardService.displayPieces(this.boardKey, this.player)
     } else {
-      this.game = this.database.object('/games/' + this.gameKey)
-      this.game.update({ sharedBoardKey: this.boardKey })
+      var game = this.getGame() 
+      game.update({ sharedBoardKey: this.boardKey })
     }
 
     this.getBoard(this.boardKey)
@@ -56,13 +59,16 @@ export class BoardComponent implements OnInit {
     var string = event.srcElement.attributes.class.value;
     var pieceKey = string.substring(string.indexOf("-"))
 
-    this.database.object('/boards/' + this.boardKey + "/pieces/" + pieceKey).take(1).subscribe(piece => {
-      piece.update({active: true, centerX: 10, centerY: 10})
-      this.game.take(1).subscribe(game => {
-        var piecesTo: FirebaseListObservable<any> = this.database.list('/boards/' + game + "/pieces/" )
-        piecesTo.push(piece)
-      })
-    }) 
+    var piece = this.database.object('/boards/' + this.boardKey + "/pieces/" + pieceKey)
+    piece.update({active: true, centerX: 10, centerY: 10})
+    var game = this.getGame()
+    
+    game.take(1).subscribe(game => {
+      var piecesTo: FirebaseListObservable<any> = this.database.list('/boards/' + game.sharedBoardKey + "/pieces/" )
+      console.log("shared board key: " + game.sharedBoardKey + " this.boardKey: " + this.boardKey)
+      piecesTo.push(piece)
+    })
+    
     
     var piecesFrom: FirebaseListObservable<any> = this.database.list('/boards/' + this.boardKey + "/pieces/" )
     piecesFrom.remove(pieceKey)
